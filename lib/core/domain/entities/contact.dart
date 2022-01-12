@@ -32,5 +32,18 @@ class Contact extends Equatable {
   }
 
   @override
-  List<Object> get props => [firstName, lastName, phoneNumber, emailAddress];
+  List<Object> get props {
+    return [
+      id,
+      firstName,
+      lastName,
+      phoneNumber,
+      emailAddress,
+    ];
+  }
+
+  @override
+  String toString() {
+    return 'Contact(id: $id, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, emailAddress: $emailAddress)';
+  }
 }
