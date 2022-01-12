@@ -8,7 +8,7 @@ abstract class IContactsRepository {
   /// Adds a new [Contact].
   ///
   /// If a [Contact] with the same id already exists, then it will replace it.
-  void saveContact(int id, Contact contact);
+  void saveContact(Contact contact);
 
   /// Deletes the contact with the given id.
   ///

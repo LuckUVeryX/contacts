@@ -31,14 +31,16 @@ class ContactsRepository implements IContactsRepository {
   }
 
   @override
-  void saveContact(int id, Contact contact) {
+  void saveContact(Contact contact) {
     final contacts = [..._contactsStreamController.value];
-    final contactIdx = contacts.indexWhere((element) => element.id == id);
+    final contactIdx =
+        contacts.indexWhere((element) => element.id == contact.id);
     if (contactIdx >= 0) {
       contacts[contactIdx] = contact;
     } else {
       contacts.add(contact);
     }
+    _contactsStreamController.add(contacts);
   }
 
   Future<void> init() async {
