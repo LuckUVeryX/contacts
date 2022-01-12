@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:contacts/core/data/models/raw_contacts_model.dart';
+import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../fixtures/fixture_reader.dart';
@@ -33,6 +34,31 @@ void main() {
       final result = RawContacts.fromJson(jsonMap);
 
       expect(result, tRawContacts);
+    });
+
+    test('the getter contactsList should parse and return a list of Contacts',
+        () {
+      final expected = <Contact>[
+        const Contact(
+          id: 1,
+          firstName: 'Ryan',
+          lastName: 'Yip',
+          phoneNumber: '+65 97299957',
+          emailAddress: 'ryanyip@example.com',
+        ),
+        const Contact(
+          id: 2,
+          firstName: 'Knapp',
+          lastName: 'Berry',
+          phoneNumber: '+1 (951) 472-2967',
+          emailAddress: 'knappberry@unq.com',
+        ),
+      ];
+
+      final Map<String, dynamic> jsonMap = jsonDecode(fixture('contacts.json'));
+      final result = RawContacts.fromJson(jsonMap);
+
+      expect(result.contactsList, expected);
     });
   });
 }
