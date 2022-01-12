@@ -1,16 +1,67 @@
-# contacts
+# Contacts
 
-A new Flutter project.
+Contacts List Engineering Challenge
 
-## Getting Started
+## Resources Used
+[Fake Contacts JSON](https://github.com/wellingtoncosta/fake-contacts-json)
 
-This project is a starting point for a Flutter application.
+## Challenge Prompt
 
-A few resources to get you started if this is your first Flutter project:
+The application will be evaluated on:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+1. Usage of state
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Routing in general
+
+3. Forms
+
+4. Overall architecture
+
+5. Styling
+
+
+
+Requirements for the application are as follows.
+
+1. You may use a set of existing contacts for the list. Hard code a list to start with. The list may reside in memory and be manipulated by the add, edit, and delete functions.
+
+2. Contact information should consist of:
+
+a. First name
+
+b. Last name
+
+c. Phone number
+
+d. Email address
+
+3. Initially the user should be viewing a page with a list of existing contacts. In the contacts list, a contact should be shown with a card style layout. Each card should consist of:
+
+a. First name
+
+b. Last name
+
+c. Phone number
+
+4. From the Contact Listing page, the user should be able to:
+
+a. Edit an existing contact
+
+i. All fields are editable
+
+ii. Create a separate page for editing
+
+b. View a contact
+
+i. Expand a contact to view all information
+
+c. Delete an existing user
+
+i. A simple delete with a confirmation popup. Are you sure you want to delete â€œContactâ€?
+
+d. Create a new contact
+
+i. Create a separate page for creating
+
+After any contact actions have been performed, the list must update to reflect any changes
+ 
