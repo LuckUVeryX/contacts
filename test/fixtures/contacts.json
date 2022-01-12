@@ -1,0 +1,16 @@
+{
+    "contacts": [
+        {
+            "id": 1,
+            "name": "Ryan Yip",
+            "email": "ryanyip@example.com",
+            "phone": "+65 97299957"
+        },
+        {
+            "id": 2,
+            "name": "Knapp Berry",
+            "email": "knappberry@unq.com",
+            "phone": "+1 (951) 472-2967"
+        }
+    ]
+}
