@@ -1,14 +1,14 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:contacts/core/data/repositories/contacts_repostory_impl.dart';
 import 'package:contacts/core/domain/entities/contact.dart';
+import 'package:contacts/core/domain/repositories/contacts_repository.dart';
 import 'package:contacts/features/contacts_list/presentation/bloc/contacts_list_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'contacts_list_bloc_test.mocks.dart';
+import '../../../edit_contact/presentation/bloc/edit_contact_bloc_test.mocks.dart';
 
-@GenerateMocks([ContactsRepository])
+@GenerateMocks([IContactsRepository])
 void main() {
   final mockContacts = [
     const Contact(
@@ -35,10 +35,10 @@ void main() {
   ];
 
   group('ContactsListBloc -', () {
-    late ContactsRepository repository;
+    late IContactsRepository repository;
 
     setUp(() {
-      repository = MockContactsRepository();
+      repository = MockIContactsRepository();
       when(repository.contacts).thenAnswer((_) => Stream.value(mockContacts));
     });
 

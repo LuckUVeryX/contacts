@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/data/repositories/contacts_repostory_impl.dart';
 import '../../../../core/domain/entities/contact.dart';
+import '../../../../core/domain/repositories/contacts_repository.dart';
 import '../../../../core/errors/exceptions.dart';
 
 part 'contacts_list_event.dart';
@@ -16,7 +16,7 @@ class ContactsListBloc extends Bloc<ContactsListEvent, ContactsListState> {
     on<ContactsListUndoDeletionRequested>(_onUndoDeletionRequested);
   }
 
-  final ContactsRepository _repository;
+  final IContactsRepository _repository;
 
   Future<void> _onSubcriptionRequested(
     ContactsListSubscriptionRequested event,
