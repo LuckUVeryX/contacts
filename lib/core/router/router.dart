@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 
 import '../../features/contacts_list/presentation/pages/contacts_list_page.dart';
-import '../../features/edit_contacts/presentation/pages/edit_contacts_page.dart';
+import '../../features/edit_contact/presentation/pages/edit_contact_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
