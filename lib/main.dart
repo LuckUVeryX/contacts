@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 
 import 'core/observers/observers.dart';
 import 'core/router/router.gr.dart';
+import 'core/theme/theme.dart';
 
 void main() {
   // Sets the logging level.
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Contacts',
-      themeMode: ThemeMode.dark,
+      theme: AppTheme.lightTheme,
       routeInformationParser: _appRouter.defaultRouteParser(),
       routerDelegate: _appRouter.delegate(
         navigatorObservers: () => [RouterLoggingObserver()],

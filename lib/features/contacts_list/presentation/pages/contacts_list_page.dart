@@ -20,6 +20,10 @@ class ContactsListPage extends StatelessWidget {
         ],
       ),
       body: const Center(child: Text('ContactsListPage')),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
