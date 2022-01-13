@@ -35,6 +35,9 @@ class RawContacts extends Equatable {
 
   @override
   List<Object> get props => [contacts];
+
+  @override
+  String toString() => 'RawContacts(contacts: $contacts)';
 }
 
 @JsonSerializable()
@@ -57,4 +60,9 @@ class RawContact extends Equatable {
 
   @override
   List<Object> get props => [id, name, email, phone];
+
+  @override
+  String toString() {
+    return 'RawContact(id: $id, name: $name, email: $email, phone: $phone)';
+  }
 }
