@@ -3,7 +3,7 @@
 Contacts List Engineering Challenge
 
 ## Resources Used
-[Fake Contacts JSON](https://github.com/wellingtoncosta/fake-contacts-json)
+[Fake Contacts JSON](https://github.com/wellingtoncosta/fake-contacts-json) by [wellingtoncosta](https://github.com/wellingtoncosta)
 
 ## Challenge Prompt
 
