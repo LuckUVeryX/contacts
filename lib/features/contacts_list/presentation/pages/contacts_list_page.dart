@@ -13,12 +13,6 @@ class ContactsListPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              AutoRouter.of(context).navigate(const CreateContactsRoute());
-            },
-            icon: const Icon(Icons.add),
-          ),
-          IconButton(
-            onPressed: () {
               AutoRouter.of(context).navigate(const EditContactsRoute());
             },
             icon: const Icon(Icons.edit),
