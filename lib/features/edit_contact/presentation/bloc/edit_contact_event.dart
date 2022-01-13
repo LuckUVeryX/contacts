@@ -7,32 +7,32 @@ abstract class EditContactEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class EditContactFirstNameEvent extends EditContactEvent {
-  const EditContactFirstNameEvent(this.firstName);
+class EditContactFirstNameChanged extends EditContactEvent {
+  const EditContactFirstNameChanged(this.firstName);
   final String firstName;
 
   @override
   List<Object> get props => [firstName];
 }
 
-class EditContactLastNameEvent extends EditContactEvent {
-  const EditContactLastNameEvent(this.lastName);
+class EditContactLastNameChanged extends EditContactEvent {
+  const EditContactLastNameChanged(this.lastName);
   final String lastName;
 
   @override
   List<Object> get props => [lastName];
 }
 
-class EditContactPhoneNumberEvent extends EditContactEvent {
-  const EditContactPhoneNumberEvent(this.phoneNumber);
+class EditContactPhoneNumberChanged extends EditContactEvent {
+  const EditContactPhoneNumberChanged(this.phoneNumber);
   final String phoneNumber;
 
   @override
   List<Object> get props => [phoneNumber];
 }
 
-class EditContactEmailEvent extends EditContactEvent {
-  const EditContactEmailEvent(this.email);
+class EditContactEmailChanged extends EditContactEvent {
+  const EditContactEmailChanged(this.email);
   final String email;
 
   @override

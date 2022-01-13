@@ -3,62 +3,62 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('EditContactsEvent', () {
-    group('EditContactFirstNameEvent', () {
+    group('EditContactFirstNameChanged', () {
       test('should support value equality', () {
         expect(
-          const EditContactFirstNameEvent('firstName'),
-          const EditContactFirstNameEvent('firstName'),
+          const EditContactFirstNameChanged('firstName'),
+          const EditContactFirstNameChanged('firstName'),
         );
       });
 
       test('should have the correct props', () {
         expect(
-          const EditContactFirstNameEvent('firstName').props,
+          const EditContactFirstNameChanged('firstName').props,
           <Object>['firstName'],
         );
       });
     });
-    group('EditContactLastNameEvent', () {
+    group('EditContactLastNameChanged', () {
       test('should support value equality', () {
         expect(
-          const EditContactLastNameEvent('lastName'),
-          const EditContactLastNameEvent('lastName'),
+          const EditContactLastNameChanged('lastName'),
+          const EditContactLastNameChanged('lastName'),
         );
       });
 
       test('should have the correct props', () {
         expect(
-          const EditContactLastNameEvent('lastName').props,
+          const EditContactLastNameChanged('lastName').props,
           <Object>['lastName'],
         );
       });
     });
-    group('EditContactPhoneNumberEvent', () {
+    group('EditContactPhoneNumberChanged', () {
       test('should support value equality', () {
         expect(
-          const EditContactPhoneNumberEvent('phoneNum'),
-          const EditContactPhoneNumberEvent('phoneNum'),
+          const EditContactPhoneNumberChanged('phoneNum'),
+          const EditContactPhoneNumberChanged('phoneNum'),
         );
       });
 
       test('should have the correct props', () {
         expect(
-          const EditContactPhoneNumberEvent('phoneNum').props,
+          const EditContactPhoneNumberChanged('phoneNum').props,
           <Object>['phoneNum'],
         );
       });
     });
-    group('EditContactEmailEvent', () {
+    group('EditContactEmailChanged', () {
       test('should support value equality', () {
         expect(
-          const EditContactEmailEvent('email'),
-          const EditContactEmailEvent('email'),
+          const EditContactEmailChanged('email'),
+          const EditContactEmailChanged('email'),
         );
       });
 
       test('should have the correct props', () {
         expect(
-          const EditContactEmailEvent('email').props,
+          const EditContactEmailChanged('email').props,
           <Object>['email'],
         );
       });
