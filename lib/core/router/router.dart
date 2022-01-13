@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 
 import '../../features/contacts_list/presentation/pages/contacts_list_page.dart';
-import '../../features/create_contacts/presentation/pages/create_contacts_page.dart';
 import '../../features/edit_contacts/presentation/pages/edit_contacts_page.dart';
 
 @MaterialAutoRouter(
@@ -10,7 +9,6 @@ import '../../features/edit_contacts/presentation/pages/edit_contacts_page.dart'
     // Add routes here
     AutoRoute(page: ContactsListPage, initial: true, path: Routes.initial),
     AutoRoute(page: EditContactsPage, path: Routes.editContacts),
-    AutoRoute(page: CreateContactsPage, path: Routes.createContacts),
   ],
 )
 
@@ -30,5 +28,4 @@ class $AppRouter {}
 class Routes {
   static const initial = '/contacts';
   static const editContacts = '/edit';
-  static const createContacts = '/create';
 }
