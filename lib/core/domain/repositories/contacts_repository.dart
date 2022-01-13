@@ -2,6 +2,8 @@ import '../../errors/exceptions.dart';
 import '../entities/contact.dart';
 
 abstract class IContactsRepository {
+  Future<void> init();
+
   /// Provides a [Stream] of all contacts
   Stream<List<Contact>> get contacts;
 

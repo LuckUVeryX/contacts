@@ -43,6 +43,7 @@ class ContactsRepository implements IContactsRepository {
     _contactsStreamController.add(contacts);
   }
 
+  @override
   Future<void> init() async {
     final rawContacts = await _dataSource.fetchContacts();
     _contactsStreamController.add(rawContacts.contactsList);
