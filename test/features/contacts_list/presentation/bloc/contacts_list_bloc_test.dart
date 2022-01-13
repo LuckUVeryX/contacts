@@ -34,7 +34,7 @@ void main() {
     ),
   ];
 
-  group('ContactsListBloc', () {
+  group('ContactsListBloc -', () {
     late ContactsRepository repository;
 
     setUp(() {
