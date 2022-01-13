@@ -1,6 +1,6 @@
 part of 'edit_contact_bloc.dart';
 
-enum EditContactStatus { initial, loading, successs, failure }
+enum EditContactStatus { initial, loading, done }
 
 class EditContactState extends Equatable {
   const EditContactState({
