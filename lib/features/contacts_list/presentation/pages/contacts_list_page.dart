@@ -227,31 +227,3 @@ class _EmptyContactsView extends StatelessWidget {
     );
   }
 }
-
-// showDialog(
-//                 context: context,
-//                 builder: (dialogContext) {
-//                   return AlertDialog(
-//                     title: const Text('Warning!'),
-//                     content: const Text(
-//                       'Are you sure you want to delete this contact?',
-//                     ),
-//                     actions: [
-//                       TextButton(
-//                         onPressed: () {
-//                           // context.read<ContactsListBloc>().add(
-//                           //       ContactsListContactDeletionRequested(
-//                           //         contact,
-//                           //       ),
-//                           //     );
-
-//                           Navigator.of(context).pop(true);
-//                         },
-//                         child: const Text('DELETE'),
-//                       ),
-//                       ElevatedButton(
-//                         onPressed: () => Navigator.of(dialogContext).pop(false),
-//                         child: const Text('CANCEL'),
-//                       ),
-//                     ],
-//                   );
