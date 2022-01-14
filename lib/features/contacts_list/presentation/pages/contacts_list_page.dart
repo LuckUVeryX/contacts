@@ -53,11 +53,7 @@ class ContactsListPage extends StatelessWidget {
                     child: Text('Uh oh, something has went horribly wrong'),
                   );
                 } else {
-                  // TODO: Add arrow to point to floating action button.
-                  return const Center(
-                    child: Text(
-                        'You have no contacts! Add one by tapping the add button'),
-                  );
+                  return const _EmptyContactsView();
                 }
               }
               return _ContactsListView(state: state);
@@ -160,6 +156,38 @@ class _ContactsListViewState extends State<_ContactsListView> {
           );
         },
       ),
+    );
+  }
+}
+
+class _EmptyContactsView extends StatelessWidget {
+  const _EmptyContactsView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        const Center(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'You have no contacts... Add one by tapping the add button below!',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 80,
+          right: 4,
+          child: Icon(
+            Icons.arrow_downward,
+            size: 80,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+      ],
     );
   }
 }
