@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 
+import '../../features/contact_info/presentation/pages/contact_info_page.dart';
 import '../../features/contacts_list/presentation/pages/contacts_list_page.dart';
 import '../../features/edit_contact/presentation/pages/edit_contact_page.dart';
 
@@ -7,8 +8,9 @@ import '../../features/edit_contact/presentation/pages/edit_contact_page.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     // Add routes here
-    AutoRoute(page: ContactsListPage, initial: true, path: Routes.initial),
-    AutoRoute(page: EditContactsPage, path: Routes.editContacts),
+    AutoRoute(page: ContactsListPage, initial: true),
+    AutoRoute(page: ContactInfoPage),
+    AutoRoute(page: EditContactsPage),
   ],
 )
 
@@ -24,8 +26,3 @@ import '../../features/edit_contact/presentation/pages/edit_contact_page.dart';
 ///
 /// https://autoroute.vercel.app/
 class $AppRouter {}
-
-class Routes {
-  static const initial = '/contacts';
-  static const editContacts = '/edit';
-}

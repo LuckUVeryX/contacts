@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grouped_list/grouped_list.dart';
 
 import '../../../../core/data/repositories/contacts_repostory_impl.dart';
 import '../../../../core/domain/entities/contact.dart';
+import '../../../../core/router/router.gr.dart';
 import '../bloc/contacts_list_bloc.dart';
 import '../widgets/contacts_tile.dart';
 
@@ -63,7 +65,9 @@ class ContactsListPage extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            AutoRouter.of(context).push(EditContactsRoute());
+          },
           child: const Icon(Icons.add),
         ),
       ),
