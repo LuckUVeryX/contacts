@@ -9,10 +9,12 @@ class ContactsTile extends StatelessWidget {
     Key? key,
     required this.contact,
     required this.onDismissed,
+    required this.confirmDismiss,
   }) : super(key: key);
 
   final Contact contact;
-  final void Function(DismissDirection)? onDismissed;
+  final void Function(DismissDirection direction)? onDismissed;
+  final Future<bool?> Function(DismissDirection direction)? confirmDismiss;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class ContactsTile extends StatelessWidget {
         child: Dismissible(
           key: Key(contact.id.toString()),
           direction: DismissDirection.endToStart,
+          confirmDismiss: confirmDismiss,
           onDismissed: onDismissed,
           background: Container(
             color: colorScheme.error,
