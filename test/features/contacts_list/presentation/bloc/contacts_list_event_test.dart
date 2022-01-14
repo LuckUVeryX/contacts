@@ -11,7 +11,7 @@ void main() {
       lastName: 'Yip',
       phoneNumber: '+65 97299957',
       emailAddress: 'ryanyip@example.com',
-        profileColor: Colors.red,
+      profileColor: Colors.red,
     );
 
     group('ContactsListSubscriptionRequested', () {
