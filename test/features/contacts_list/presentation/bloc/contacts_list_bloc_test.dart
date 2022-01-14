@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/core/domain/repositories/contacts_repository.dart';
 import 'package:contacts/features/contacts_list/presentation/bloc/contacts_list_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -17,6 +18,7 @@ void main() {
       lastName: 'lastName 1',
       phoneNumber: 'phone 1',
       emailAddress: 'email 1',
+      profileColor: Colors.red,
     ),
     const Contact(
       id: 2,
@@ -24,6 +26,7 @@ void main() {
       lastName: 'lastName 2',
       phoneNumber: 'phone 2',
       emailAddress: 'email 2',
+      profileColor: Colors.red,
     ),
     const Contact(
       id: 3,
@@ -31,6 +34,7 @@ void main() {
       lastName: 'lastName 3',
       phoneNumber: 'phone 3',
       emailAddress: 'email 3',
+      profileColor: Colors.red,
     ),
   ];
 

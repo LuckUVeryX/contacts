@@ -1,5 +1,6 @@
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/features/contacts_list/presentation/bloc/contacts_list_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -10,6 +11,7 @@ void main() {
       lastName: 'Yip',
       phoneNumber: '+65 97299957',
       emailAddress: 'ryanyip@example.com',
+        profileColor: Colors.red,
     );
 
     group('ContactsListSubscriptionRequested', () {

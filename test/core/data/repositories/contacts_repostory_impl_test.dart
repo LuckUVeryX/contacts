@@ -3,6 +3,7 @@ import 'package:contacts/core/data/models/raw_contacts_model.dart';
 import 'package:contacts/core/data/repositories/contacts_repostory_impl.dart';
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/core/errors/exceptions.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -60,6 +61,7 @@ void main() {
             lastName: 'Yip',
             phoneNumber: '+65 97299957',
             emailAddress: 'ryanyip@example.com',
+            profileColor: Colors.red,
           )
         ];
 
@@ -115,6 +117,7 @@ void main() {
             lastName: 'lastname',
             phoneNumber: '123456789',
             emailAddress: 'emailaddress@email.com',
+            profileColor: Colors.red,
           );
 
           const initialContact = Contact(
@@ -123,6 +126,7 @@ void main() {
             lastName: 'Yip',
             phoneNumber: '+65 97299957',
             emailAddress: 'ryanyip@example.com',
+            profileColor: Colors.red,
           );
 
           repository.saveContact(tContact);
@@ -139,6 +143,7 @@ void main() {
             lastName: 'lastname',
             phoneNumber: '123456789',
             emailAddress: 'emailaddress@email.com',
+            profileColor: Colors.red,
           );
 
           repository.saveContact(newContact);

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/painting.dart';
 
 class Contact extends Equatable {
   final int id;
@@ -6,6 +7,7 @@ class Contact extends Equatable {
   final String lastName;
   final String phoneNumber;
   final String emailAddress;
+  final Color profileColor;
 
   const Contact({
     required this.id,
@@ -13,6 +15,7 @@ class Contact extends Equatable {
     required this.lastName,
     required this.phoneNumber,
     required this.emailAddress,
+    required this.profileColor,
   });
 
   Contact copyWith({
@@ -21,6 +24,7 @@ class Contact extends Equatable {
     String? lastName,
     String? phoneNumber,
     String? emailAddress,
+    Color? profileColor,
   }) {
     return Contact(
       id: id ?? this.id,
@@ -28,22 +32,18 @@ class Contact extends Equatable {
       lastName: lastName ?? this.lastName,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       emailAddress: emailAddress ?? this.emailAddress,
+      profileColor: profileColor ?? this.profileColor,
     );
   }
 
   @override
   List<Object> get props {
-    return [
-      id,
-      firstName,
-      lastName,
-      phoneNumber,
-      emailAddress,
-    ];
+    // Ignore profile color from props
+    return [id, firstName, lastName, phoneNumber, emailAddress];
   }
 
   @override
   String toString() {
-    return 'Contact(id: $id, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, emailAddress: $emailAddress)';
+    return 'Contact(id: $id, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, profileColor: $profileColor)';
   }
 }

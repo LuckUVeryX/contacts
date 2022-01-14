@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:contacts/core/data/models/raw_contacts_model.dart';
 import 'package:contacts/core/domain/entities/contact.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../fixtures/fixture_reader.dart';
@@ -45,6 +46,7 @@ void main() {
           lastName: 'Yip',
           phoneNumber: '+65 97299957',
           emailAddress: 'ryanyip@example.com',
+          profileColor: Colors.red,
         ),
         const Contact(
           id: 2,
@@ -52,6 +54,7 @@ void main() {
           lastName: 'Berry',
           phoneNumber: '+1 (951) 472-2967',
           emailAddress: 'knappberry@unq.com',
+          profileColor: Colors.red,
         ),
       ];
 
