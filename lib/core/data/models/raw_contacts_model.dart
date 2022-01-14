@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/contact.dart';
+import '../../theme/palette.dart';
 
 part 'raw_contacts_model.g.dart';
 
@@ -32,9 +30,7 @@ class RawContacts extends Equatable {
         phoneNumber: rawContact.phone,
         emailAddress: rawContact.email,
         // Generate random color for each profile
-        profileColor: Color(
-          (Random().nextDouble() * 0xFFFFFF).toInt(),
-        ).withOpacity(1.0),
+        profileColor: PurpleShades.randomColor,
       ));
     }
     return ls;
