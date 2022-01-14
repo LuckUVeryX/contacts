@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/domain/entities/contact.dart';
 
 class EditContactsPage extends StatelessWidget {
-  const EditContactsPage({Key? key, required this.contact}) : super(key: key);
+  const EditContactsPage({Key? key, this.contact}) : super(key: key);
 
-  final Contact contact;
+  final Contact? contact;
 
   @override
   Widget build(BuildContext context) {

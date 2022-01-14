@@ -38,7 +38,8 @@ class AppRouter extends _i4.RootStackRouter {
           child: _i2.ContactInfoPage(key: args.key, contact: args.contact));
     },
     EditContactsRoute.name: (routeData) {
-      final args = routeData.argsAs<EditContactsRouteArgs>();
+      final args = routeData.argsAs<EditContactsRouteArgs>(
+          orElse: () => const EditContactsRouteArgs());
       return _i4.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i3.EditContactsPage(key: args.key, contact: args.contact));
@@ -88,7 +89,7 @@ class ContactInfoRouteArgs {
 /// generated route for
 /// [_i3.EditContactsPage]
 class EditContactsRoute extends _i4.PageRouteInfo<EditContactsRouteArgs> {
-  EditContactsRoute({_i5.Key? key, required _i6.Contact contact})
+  EditContactsRoute({_i5.Key? key, _i6.Contact? contact})
       : super(EditContactsRoute.name,
             path: '/edit-contacts-page',
             args: EditContactsRouteArgs(key: key, contact: contact));
@@ -97,11 +98,11 @@ class EditContactsRoute extends _i4.PageRouteInfo<EditContactsRouteArgs> {
 }
 
 class EditContactsRouteArgs {
-  const EditContactsRouteArgs({this.key, required this.contact});
+  const EditContactsRouteArgs({this.key, this.contact});
 
   final _i5.Key? key;
 
-  final _i6.Contact contact;
+  final _i6.Contact? contact;
 
   @override
   String toString() {
