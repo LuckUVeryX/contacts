@@ -100,7 +100,7 @@ class ContactsListPage extends StatelessWidget {
   }
 }
 
-class _ContactsListView extends StatelessWidget {
+class _ContactsListView extends StatefulWidget {
   const _ContactsListView({
     Key? key,
     required this.state,
@@ -108,43 +108,54 @@ class _ContactsListView extends StatelessWidget {
   final ContactsListState state;
 
   @override
+  State<_ContactsListView> createState() => _ContactsListViewState();
+}
+
+class _ContactsListViewState extends State<_ContactsListView> {
+  final ScrollController _scrollController = ScrollController();
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
-    return GroupedListView(
-      elements: state.contacts,
-      groupBy: (Contact element) => element.lastName[0],
-      itemComparator: (Contact a, Contact b) {
-        // Orders by lastName then by firstName
-        return a.lastName.compareTo(b.lastName) * 10 +
-            a.firstName.compareTo(b.firstName);
-      },
-      groupSeparatorBuilder: (String value) {
-        return Container(
-          color: Colors.grey[700],
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 4.0,
-          ),
-          child: Text(
-            value,
-            style: textTheme.bodyText1?.copyWith(
-              color: colorScheme.onSurface,
+    return Scrollbar(
+      controller: _scrollController,
+      interactive: true,
+      child: GroupedListView(
+        controller: _scrollController,
+        elements: widget.state.contacts,
+        groupBy: (Contact element) => element.lastName[0],
+        itemComparator: (Contact a, Contact b) {
+          // Orders by lastName then by firstName
+          return a.lastName.compareTo(b.lastName) * 10 +
+              a.firstName.compareTo(b.firstName);
+        },
+        groupSeparatorBuilder: (String value) {
+          return Container(
+            color: Colors.grey[700],
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 4.0,
             ),
-          ),
-        );
-      },
-      itemBuilder: (context, Contact contact) {
-        return ContactsTile(
-          contact: contact,
-          onDismissed: (_) {
-            context
-                .read<ContactsListBloc>()
-                .add(ContactsListContactDeleted(contact));
-          },
-        );
-      },
+            child: Text(
+              value,
+              style: textTheme.bodyText1?.copyWith(
+                color: colorScheme.onSurface,
+              ),
+            ),
+          );
+        },
+        itemBuilder: (context, Contact contact) {
+          return ContactsTile(
+            contact: contact,
+            onDismissed: (_) {
+              context
+                  .read<ContactsListBloc>()
+                  .add(ContactsListContactDeleted(contact));
+            },
+          );
+        },
+      ),
     );
   }
 }
