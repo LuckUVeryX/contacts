@@ -6,19 +6,16 @@ enum ContactsListStatus { initial, loading, success, failure }
 class ContactsListState extends Equatable {
   const ContactsListState({
     this.status = ContactsListStatus.initial,
-    List<Contact> contacts = const [],
+    this.contacts = const [],
     this.lastDeletedContact,
-  }) : _contacts = contacts;
+  });
 
   final ContactsListStatus status;
-  final List<Contact> _contacts;
+  final List<Contact> contacts;
   final Contact? lastDeletedContact;
 
-  List<Contact> get contacts => List.unmodifiable(List<Contact>.from(_contacts)
-    ..sort((a, b) => a.lastName.compareTo(b.lastName)));
-
   @override
-  List<Object?> get props => [status, _contacts, lastDeletedContact];
+  List<Object?> get props => [status, contacts, lastDeletedContact];
 
   ContactsListState copyWith({
     ContactsListStatus? status,
@@ -27,7 +24,7 @@ class ContactsListState extends Equatable {
   }) {
     return ContactsListState(
       status: status ?? this.status,
-      contacts: contacts ?? _contacts,
+      contacts: contacts ?? this.contacts,
       lastDeletedContact: lastDeletedContact != null
           ? lastDeletedContact()
           : this.lastDeletedContact,
