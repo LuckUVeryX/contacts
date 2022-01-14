@@ -1,5 +1,6 @@
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/features/contacts_list/presentation/bloc/contacts_list_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -9,6 +10,7 @@ void main() {
     lastName: 'Yip',
     phoneNumber: '+65 97299957',
     emailAddress: 'ryanyip@example.com',
+    profileColor: Colors.red,
   );
   final mockContacts = [mockContact];
 
@@ -92,61 +94,6 @@ void main() {
         final expected = createState(lastDeletedContact: null);
 
         expect(res, expected);
-      });
-    });
-
-    group('the getter contacts', () {
-      test('should return a list of sorted contacts sorted by last name', () {
-        final mockUnsortedContacts = [
-          const Contact(
-            id: 1,
-            firstName: 'first',
-            lastName: 'c',
-            phoneNumber: 'phone',
-            emailAddress: 'email',
-          ),
-          const Contact(
-            id: 2,
-            firstName: 'first',
-            lastName: 'b',
-            phoneNumber: 'phone',
-            emailAddress: 'email',
-          ),
-          const Contact(
-            id: 3,
-            firstName: 'first',
-            lastName: 'a',
-            phoneNumber: 'phone',
-            emailAddress: 'email',
-          ),
-        ];
-
-        final mockSortedContacts = [
-          const Contact(
-            id: 3,
-            firstName: 'first',
-            lastName: 'a',
-            phoneNumber: 'phone',
-            emailAddress: 'email',
-          ),
-          const Contact(
-            id: 2,
-            firstName: 'first',
-            lastName: 'b',
-            phoneNumber: 'phone',
-            emailAddress: 'email',
-          ),
-          const Contact(
-            id: 1,
-            firstName: 'first',
-            lastName: 'c',
-            phoneNumber: 'phone',
-            emailAddress: 'email',
-          ),
-        ];
-        var res = createState(contacts: mockUnsortedContacts);
-
-        expect(res.contacts, mockSortedContacts);
       });
     });
   });

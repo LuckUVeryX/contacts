@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/domain/entities/contact.dart';
@@ -63,6 +66,9 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
           lastName: state.lastName,
           emailAddress: state.emailAddress,
           phoneNumber: state.phoneNumber,
+          profileColor: Color(
+            (Random().nextDouble() * 0xFFFFFF).toInt(),
+          ).withOpacity(1.0),
         );
 
     contact = contact.copyWith(

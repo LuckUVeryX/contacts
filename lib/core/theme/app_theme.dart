@@ -6,19 +6,19 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData.from(
       colorScheme: const ColorScheme(
-        primary: Palette.highlight,
-        primaryVariant: Palette.highlight,
-        secondary: Palette.tertiary,
-        secondaryVariant: Palette.tertiary,
+        primary: Palette.accent,
+        primaryVariant: Palette.accent,
+        secondary: Palette.accent,
+        secondaryVariant: Palette.accent,
         surface: Palette.background,
         background: Palette.background,
-        error: Palette.tertiary,
-        onPrimary: Palette.buttonText,
+        error: Palette.accent,
+        onPrimary: Palette.background,
         onSecondary: Palette.background,
-        onSurface: Palette.paragraph,
-        onBackground: Palette.background,
-        onError: Palette.background,
-        brightness: Brightness.light,
+        onSurface: Palette.headline,
+        onBackground: Palette.paragraph,
+        onError: Palette.accent,
+        brightness: Brightness.dark,
       ),
     );
   }

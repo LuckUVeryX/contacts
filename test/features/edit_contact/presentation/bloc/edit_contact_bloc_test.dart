@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/core/domain/repositories/contacts_repository.dart';
 import 'package:contacts/features/edit_contact/presentation/bloc/edit_contact_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -109,6 +110,7 @@ void main() {
               lastName: 'lastName',
               phoneNumber: '+123456789',
               emailAddress: 'email',
+              profileColor: Colors.red,
             ),
           ),
         ),
@@ -123,6 +125,7 @@ void main() {
             lastName: 'initLastName',
             phoneNumber: 'initPhone',
             emailAddress: 'initEmail',
+            profileColor: Colors.red,
           ),
           firstName: 'firstName',
           lastName: 'lastName',
@@ -139,6 +142,7 @@ void main() {
               lastName: 'initLastName',
               phoneNumber: 'initPhone',
               emailAddress: 'initEmail',
+              profileColor: Colors.red,
             ),
             firstName: 'firstName',
             lastName: 'lastName',
@@ -152,6 +156,7 @@ void main() {
               lastName: 'initLastName',
               phoneNumber: 'initPhone',
               emailAddress: 'initEmail',
+              profileColor: Colors.red,
             ),
             status: EditContactStatus.done,
             firstName: 'firstName',
@@ -168,6 +173,7 @@ void main() {
               lastName: 'lastName',
               phoneNumber: '+123456789',
               emailAddress: 'email',
+              profileColor: Colors.red,
             ),
           ),
         ),

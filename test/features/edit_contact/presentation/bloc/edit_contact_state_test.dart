@@ -1,5 +1,6 @@
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/features/edit_contact/presentation/bloc/edit_contact_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -10,6 +11,7 @@ void main() {
       lastName: 'lastName1',
       phoneNumber: 'phoneNumber1',
       emailAddress: 'emailAddress1',
+      profileColor: Colors.red,
     );
 
     EditContactState createState({
