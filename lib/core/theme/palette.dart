@@ -1,9 +1,8 @@
 import 'package:flutter/painting.dart';
 
 class Palette {
-  static const Color background = Color(0xfffef6e4);
-  static const Color buttonText = Color(0xff001858);
-  static const Color paragraph = Color(0xff172c66);
-  static const Color highlight = Color(0xff8bd3dd);
-  static const Color tertiary = Color(0Xfff582ae);
+  static const Color background = Color(0xff232946);
+  static const Color accent = Color(0xffeebbc3);
+  static const Color headline = Color(0xfffffffe);
+  static const Color paragraph = Color(0xffb8c1ec);
 }
