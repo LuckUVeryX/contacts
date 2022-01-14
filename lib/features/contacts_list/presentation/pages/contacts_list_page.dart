@@ -153,6 +153,26 @@ class _ContactsListViewState extends State<_ContactsListView> {
                   .read<ContactsListBloc>()
                   .add(ContactsListContactDeleted(contact));
             },
+            confirmDismiss: (_) async {
+              return await showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Delete contact?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: const Text('CANCEL'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: const Text('DELETE'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           );
         },
       ),
@@ -191,3 +211,31 @@ class _EmptyContactsView extends StatelessWidget {
     );
   }
 }
+
+// showDialog(
+//                 context: context,
+//                 builder: (dialogContext) {
+//                   return AlertDialog(
+//                     title: const Text('Warning!'),
+//                     content: const Text(
+//                       'Are you sure you want to delete this contact?',
+//                     ),
+//                     actions: [
+//                       TextButton(
+//                         onPressed: () {
+//                           // context.read<ContactsListBloc>().add(
+//                           //       ContactsListContactDeletionRequested(
+//                           //         contact,
+//                           //       ),
+//                           //     );
+
+//                           Navigator.of(context).pop(true);
+//                         },
+//                         child: const Text('DELETE'),
+//                       ),
+//                       ElevatedButton(
+//                         onPressed: () => Navigator.of(dialogContext).pop(false),
+//                         child: const Text('CANCEL'),
+//                       ),
+//                     ],
+//                   );
