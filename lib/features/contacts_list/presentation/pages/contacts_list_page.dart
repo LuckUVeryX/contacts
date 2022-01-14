@@ -158,7 +158,23 @@ class _ContactsListViewState extends State<_ContactsListView> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: const Text('Delete contact?'),
+                    title: const Text('Delete this contact?'),
+                    content: RichText(
+                      text: TextSpan(
+                        style: textTheme.subtitle1,
+                        children: [
+                          const TextSpan(
+                              text: 'You are about to delete the contact '),
+                          TextSpan(
+                            text: contact.firstName + ' ' + contact.lastName,
+                            style: textTheme.subtitle1?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const TextSpan(text: '.'),
+                        ],
+                      ),
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(false),
