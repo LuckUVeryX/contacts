@@ -5,14 +5,13 @@ import 'package:grouped_list/grouped_list.dart';
 import '../../../../core/data/repositories/contacts_repostory_impl.dart';
 import '../../../../core/domain/entities/contact.dart';
 import '../bloc/contacts_list_bloc.dart';
+import '../widgets/contacts_tile.dart';
 
 class ContactsListPage extends StatelessWidget {
   const ContactsListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
     return BlocProvider(
       create: (context) => ContactsListBloc(context.read<ContactsRepository>())
         ..add(ContactsListSubscriptionRequested()),
@@ -26,12 +25,7 @@ class ContactsListPage extends StatelessWidget {
               listenWhen: (prev, curr) => prev.status != curr.status,
               listener: (context, state) {
                 if (state.status == ContactsListStatus.failure) {
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(
-                      // TODO: Refactor Snackbars
-                      const SnackBar(content: Text('Failed to fetch contacts')),
-                    );
+                  _showErrorSnackBar(context);
                 }
               },
             ),
@@ -41,25 +35,7 @@ class ContactsListPage extends StatelessWidget {
                   current.lastDeletedContact != null,
               listener: (context, state) {
                 final deletedContact = state.lastDeletedContact!;
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    // TODO: Refactor Snackbars
-                    SnackBar(
-                      content: Text(
-                        'Deleted ${deletedContact.firstName} ${deletedContact.lastName}',
-                      ),
-                      action: SnackBarAction(
-                        label: 'Undo',
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          context
-                              .read<ContactsListBloc>()
-                              .add(ContactsListUndoDeletionRequested());
-                        },
-                      ),
-                    ),
-                  );
+                _deleteContactSnackbar(context, deletedContact);
               },
             )
           ],
@@ -82,83 +58,7 @@ class ContactsListPage extends StatelessWidget {
                   );
                 }
               }
-              return GroupedListView(
-                elements: state.contacts,
-                groupBy: (Contact element) => element.lastName[0],
-                itemComparator: (Contact a, Contact b) {
-                  // Orders by lastName then by firstName
-                  return a.lastName.compareTo(b.lastName) * 10 +
-                      a.firstName.compareTo(b.firstName);
-                },
-                groupSeparatorBuilder: (String value) {
-                  return Container(
-                    color: Colors.grey[700],
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 4.0,
-                    ),
-                    child: Text(
-                      value,
-                      style: textTheme.bodyText1?.copyWith(
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                  );
-                },
-                itemBuilder: (context, Contact contact) {
-                  return Dismissible(
-                    key: Key(contact.id.toString()),
-                    onDismissed: (_) => context
-                        .read<ContactsListBloc>()
-                        .add(ContactsListContactDeleted(contact)),
-                    background: Container(
-                      color: colorScheme.error,
-                      child: Row(
-                        children: const [
-                          Spacer(),
-                          Icon(Icons.delete, color: Colors.white),
-                          SizedBox(width: 32.0),
-                        ],
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 8.0,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 48.0,
-                            width: 48.0,
-                            decoration: BoxDecoration(
-                              color: contact.profileColor,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                          const SizedBox(width: 32.0),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  contact.firstName + ' ' + contact.lastName,
-                                  style: textTheme.bodyText1,
-                                ),
-                                Text(
-                                  contact.phoneNumber,
-                                  style: textTheme.caption,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
+              return _ContactsListView(state: state);
             },
           ),
         ),
@@ -167,6 +67,84 @@ class ContactsListPage extends StatelessWidget {
           child: const Icon(Icons.add),
         ),
       ),
+    );
+  }
+
+  void _showErrorSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        const SnackBar(content: Text('Failed to fetch contacts')),
+      );
+  }
+
+  void _deleteContactSnackbar(BuildContext context, Contact deletedContact) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            'Deleted ${deletedContact.firstName} ${deletedContact.lastName}',
+          ),
+          action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              context
+                  .read<ContactsListBloc>()
+                  .add(ContactsListUndoDeletionRequested());
+            },
+          ),
+        ),
+      );
+  }
+}
+
+class _ContactsListView extends StatelessWidget {
+  const _ContactsListView({
+    Key? key,
+    required this.state,
+  }) : super(key: key);
+  final ContactsListState state;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return GroupedListView(
+      elements: state.contacts,
+      groupBy: (Contact element) => element.lastName[0],
+      itemComparator: (Contact a, Contact b) {
+        // Orders by lastName then by firstName
+        return a.lastName.compareTo(b.lastName) * 10 +
+            a.firstName.compareTo(b.firstName);
+      },
+      groupSeparatorBuilder: (String value) {
+        return Container(
+          color: Colors.grey[700],
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+            vertical: 4.0,
+          ),
+          child: Text(
+            value,
+            style: textTheme.bodyText1?.copyWith(
+              color: colorScheme.onSurface,
+            ),
+          ),
+        );
+      },
+      itemBuilder: (context, Contact contact) {
+        return ContactsTile(
+          contact: contact,
+          onDismissed: (_) {
+            context
+                .read<ContactsListBloc>()
+                .add(ContactsListContactDeleted(contact));
+          },
+        );
+      },
     );
   }
 }
