@@ -92,9 +92,11 @@ class ContactsListPage extends StatelessWidget {
                 },
                 groupSeparatorBuilder: (String value) {
                   return Container(
-                    color: Colors.grey[50],
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    margin: const EdgeInsets.symmetric(vertical: 4.0),
+                    color: Colors.grey[700],
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 4.0,
+                    ),
                     child: Text(
                       value,
                       style: textTheme.bodyText1?.copyWith(
@@ -127,7 +129,14 @@ class ContactsListPage extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const CircleAvatar(radius: 24.0),
+                          Container(
+                            height: 48.0,
+                            width: 48.0,
+                            decoration: BoxDecoration(
+                              color: contact.profileColor,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
                           const SizedBox(width: 32.0),
                           Expanded(
                             child: Column(
