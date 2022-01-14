@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../../core/domain/entities/contact.dart';
 import '../../../../core/router/router.gr.dart';
 
-class ContactsTile extends StatelessWidget {
-  const ContactsTile({
+class ContactCard extends StatelessWidget {
+  const ContactCard({
     Key? key,
     required this.contact,
     required this.onDismissed,

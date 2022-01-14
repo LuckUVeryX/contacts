@@ -7,7 +7,7 @@ import '../../../../core/data/repositories/contacts_repostory_impl.dart';
 import '../../../../core/domain/entities/contact.dart';
 import '../../../../core/router/router.gr.dart';
 import '../bloc/contacts_list_bloc.dart';
-import '../widgets/contacts_tile.dart';
+import '../widgets/contact_card.dart';
 
 class ContactsListPage extends StatelessWidget {
   const ContactsListPage({Key? key}) : super(key: key);
@@ -146,7 +146,7 @@ class _ContactsListViewState extends State<_ContactsListView> {
           );
         },
         itemBuilder: (context, Contact contact) {
-          return ContactsTile(
+          return ContactCard(
             contact: contact,
             onDismissed: (_) {
               context
