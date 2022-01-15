@@ -44,11 +44,12 @@ class ContactsListPage extends StatelessWidget {
           child: BlocBuilder<ContactsListBloc, ContactsListState>(
             builder: (context, state) {
               if (state.contacts.isEmpty) {
-                if (state.status == ContactsListStatus.loading) {
+                if (state.status == ContactsListStatus.loading ||
+                    state.status == ContactsListStatus.initial) {
                   return const Center(
                     child: CircularProgressIndicator.adaptive(),
                   );
-                } else if (state.status != ContactsListStatus.success) {
+                } else if (state.status == ContactsListStatus.failure) {
                   return const Center(
                     child: Text('Uh oh, something has went horribly wrong'),
                   );
