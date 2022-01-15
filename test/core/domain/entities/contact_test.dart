@@ -46,7 +46,7 @@ void main() {
     });
 
     test('should return the correct initials', () {
-      expect(mockContact.initals, 'fl');
+      expect(mockContact.initials, 'fl');
     });
   });
 }

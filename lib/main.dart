@@ -10,7 +10,7 @@ import 'core/theme/theme.dart';
 
 Future<void> main() async {
   // Sets the logging level.
-  Logger.level = Level.info;
+  Logger.level = Level.verbose;
 
   WidgetsFlutterBinding.ensureInitialized();
   final repository = ContactsRepository(ContactsLocalDataSource());

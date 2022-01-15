@@ -21,6 +21,18 @@ class EditContactState extends Equatable {
 
   bool get isNewContact => initialContact == null;
 
+  String get initials {
+    String first = '';
+    String last = '';
+    if (firstName.isNotEmpty) {
+      first = firstName[0];
+    }
+    if (lastName.isNotEmpty) {
+      last = lastName[0];
+    }
+    return '$first$last';
+  }
+
   @override
   List<Object?> get props {
     return [

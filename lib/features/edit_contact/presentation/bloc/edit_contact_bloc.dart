@@ -16,7 +16,13 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
     required IContactsRepository repository,
     required Contact? initialContact,
   })  : _repository = repository,
-        super(EditContactState(initialContact: initialContact)) {
+        super(EditContactState(
+          initialContact: initialContact,
+          firstName: initialContact?.firstName ?? '',
+          lastName: initialContact?.lastName ?? '',
+          phoneNumber: initialContact?.phoneNumber ?? '',
+          emailAddress: initialContact?.emailAddress ?? '',
+        )) {
     on<EditContactFirstNameChanged>(_onFirstNameChanged);
     on<EditContactLastNameChanged>(_onLastNameChanged);
     on<EditContactPhoneNumberChanged>(_onPhoneNumberchanged);
