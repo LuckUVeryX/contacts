@@ -36,10 +36,17 @@ class Contact extends Equatable {
     );
   }
 
+  String get initals => firstName[0] + lastName[0];
+
   @override
   List<Object> get props {
-    // Ignore profile color from props
-    return [id, firstName, lastName, phoneNumber, emailAddress];
+    return [
+      id,
+      firstName,
+      lastName,
+      phoneNumber,
+      emailAddress,
+    ];
   }
 
   @override
