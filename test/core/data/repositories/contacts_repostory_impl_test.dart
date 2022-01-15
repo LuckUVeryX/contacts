@@ -112,7 +112,7 @@ void main() {
         'should add new contact if id doesnt exist current lists of contacts',
         () async {
           const tContact = Contact(
-            id: -1,
+            id: 123,
             firstName: 'firstname',
             lastName: 'lastname',
             phoneNumber: '123456789',
@@ -131,7 +131,7 @@ void main() {
 
           repository.saveContact(tContact);
 
-          expectLater(res, emits([initialContact, tContact.copyWith(id: 2)]));
+          expectLater(res, emits([initialContact, tContact]));
         },
       );
       test(
