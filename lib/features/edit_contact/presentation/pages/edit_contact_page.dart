@@ -96,9 +96,11 @@ class EditContactsPage extends StatelessWidget {
             return TextFormField(
               initialValue: state.initialContact?.emailAddress,
               textInputAction: TextInputAction.done,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Email Address',
-                errorText: null,
+                errorText: state.emailAddress.valid
+                    ? null
+                    : 'Please ensure that email entered is valid',
               ),
               onChanged: (value) {
                 context

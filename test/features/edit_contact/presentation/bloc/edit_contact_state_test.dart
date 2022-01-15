@@ -1,7 +1,9 @@
 import 'package:contacts/core/domain/entities/contact.dart';
+import 'package:contacts/features/edit_contact/domain/entities/email.dart';
 import 'package:contacts/features/edit_contact/presentation/bloc/edit_contact_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:formz/formz.dart';
 
 void main() {
   group('EditContactsState', () {
@@ -20,7 +22,7 @@ void main() {
       String firstName = '',
       String lastName = '',
       String phoneNumber = '',
-      String emailAddress = '',
+      Email emailAddress = const Email.pure(),
     }) {
       return EditContactState(
         status: status,
@@ -39,20 +41,22 @@ void main() {
     test('should have the correct props', () {
       final res = EditContactState(
         status: EditContactStatus.initial,
+        formStatus: FormzStatus.pure,
         initialContact: mockInitialContact,
         firstName: 'first',
         lastName: 'last',
         phoneNumber: '+123 45678',
-        emailAddress: 'email',
+        emailAddress: const Email.pure('email'),
       );
 
       final expected = <Object?>[
         EditContactStatus.initial,
+        FormzStatus.pure,
         mockInitialContact,
         'first',
         'last',
         '+123 45678',
-        'email',
+        const Email.pure('email'),
       ];
 
       expect(res.props, expected);
@@ -101,7 +105,7 @@ void main() {
           initialContact: mockInitialContact,
           firstName: '',
           lastName: '',
-          emailAddress: '',
+          emailAddress: const Email.pure(''),
           phoneNumber: '',
         );
 
@@ -112,7 +116,7 @@ void main() {
             initialContact: mockInitialContact,
             firstName: '',
             lastName: '',
-            emailAddress: '',
+            emailAddress: const Email.pure(''),
             phoneNumber: '',
           ),
         );

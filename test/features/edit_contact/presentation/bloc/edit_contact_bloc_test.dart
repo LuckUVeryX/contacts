@@ -1,9 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/core/domain/repositories/contacts_repository.dart';
+import 'package:contacts/features/edit_contact/domain/entities/email.dart';
 import 'package:contacts/features/edit_contact/presentation/bloc/edit_contact_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:formz/formz.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -64,11 +66,32 @@ void main() {
     });
     group('EditContactEmailChanged', () {
       blocTest<EditContactBloc, EditContactState>(
-        'emits new state with updated email',
+        'emits FormzStatus.valid state with updated email if valid email is given',
         build: buildBloc,
-        act: (bloc) => bloc.add(const EditContactEmailChanged('newEmail')),
-        expect: () =>
-            <EditContactState>[EditContactState(emailAddress: 'newEmail')],
+        act: (bloc) =>
+            bloc.add(const EditContactEmailChanged('valid@example.com')),
+        expect: () {
+          return <EditContactState>[
+            EditContactState(
+              emailAddress: const Email.dirty('valid@example.com'),
+              formStatus: FormzStatus.valid,
+            )
+          ];
+        },
+      );
+      blocTest<EditContactBloc, EditContactState>(
+        'emits FormzStatus.invalid state with updated email if invalid email is given',
+        build: buildBloc,
+        act: (bloc) =>
+            bloc.add(const EditContactEmailChanged('invalid@example')),
+        expect: () {
+          return <EditContactState>[
+            EditContactState(
+              emailAddress: const Email.pure('invalid@example'),
+              formStatus: FormzStatus.invalid,
+            )
+          ];
+        },
       );
     });
 
@@ -79,7 +102,7 @@ void main() {
         seed: () => EditContactState(
           firstName: 'firstName',
           lastName: 'lastName',
-          emailAddress: 'email',
+          emailAddress: const Email.dirty('newEmail'),
           phoneNumber: '+123456789',
         ),
         act: (bloc) => bloc.add(EditContactSubmitted()),
@@ -88,14 +111,14 @@ void main() {
             status: EditContactStatus.loading,
             firstName: 'firstName',
             lastName: 'lastName',
-            emailAddress: 'email',
+            emailAddress: const Email.dirty('newEmail'),
             phoneNumber: '+123456789',
           ),
           EditContactState(
             status: EditContactStatus.done,
             firstName: 'firstName',
             lastName: 'lastName',
-            emailAddress: 'email',
+            emailAddress: const Email.dirty('newEmail'),
             phoneNumber: '+123456789',
           ),
         ],
@@ -106,7 +129,7 @@ void main() {
               firstName: 'firstName',
               lastName: 'lastName',
               phoneNumber: '+123456789',
-              emailAddress: 'email',
+              emailAddress: 'newEmail',
               profileColor: Colors.red,
             ),
           ),
@@ -126,7 +149,7 @@ void main() {
           ),
           firstName: 'firstName',
           lastName: 'lastName',
-          emailAddress: 'email',
+          emailAddress: const Email.dirty('newEmail'),
           phoneNumber: '+123456789',
         ),
         act: (bloc) => bloc.add(EditContactSubmitted()),
@@ -143,7 +166,7 @@ void main() {
             ),
             firstName: 'firstName',
             lastName: 'lastName',
-            emailAddress: 'email',
+            emailAddress: const Email.dirty('newEmail'),
             phoneNumber: '+123456789',
           ),
           EditContactState(
@@ -158,7 +181,7 @@ void main() {
             status: EditContactStatus.done,
             firstName: 'firstName',
             lastName: 'lastName',
-            emailAddress: 'email',
+            emailAddress: const Email.dirty('newEmail'),
             phoneNumber: '+123456789',
           ),
         ],
@@ -169,7 +192,7 @@ void main() {
               firstName: 'firstName',
               lastName: 'lastName',
               phoneNumber: '+123456789',
-              emailAddress: 'email',
+              emailAddress: 'newEmail',
               profileColor: Colors.red,
             ),
           ),
