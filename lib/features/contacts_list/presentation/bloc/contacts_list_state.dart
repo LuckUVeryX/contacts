@@ -14,6 +14,10 @@ class ContactsListState extends Equatable {
   final List<Contact> contacts;
   final Contact? lastDeletedContact;
 
+  Contact fromContactId(int id) {
+    return contacts.firstWhere((element) => element.id == id);
+  }
+
   @override
   List<Object?> get props => [status, contacts, lastDeletedContact];
 
