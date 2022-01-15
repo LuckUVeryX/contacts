@@ -42,7 +42,6 @@ void main() {
         'lastName1',
         'phoneNumber1',
         'emailAddress1',
-        Colors.red,
       ]);
     });
 

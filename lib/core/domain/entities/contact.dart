@@ -46,7 +46,6 @@ class Contact extends Equatable {
       lastName,
       phoneNumber,
       emailAddress,
-      profileColor,
     ];
   }
 
