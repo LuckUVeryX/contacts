@@ -10,7 +10,10 @@ class EditContactState extends Equatable {
     this.lastName = '',
     this.phoneNumber = '',
     this.emailAddress = '',
-  }) : profileColor = PurpleShades.randomColor;
+    Color? profileColor,
+  }) : profileColor = profileColor ??
+            initialContact?.profileColor ??
+            PurpleShades.randomColor;
 
   final EditContactStatus status;
   final Contact? initialContact;
@@ -53,6 +56,7 @@ class EditContactState extends Equatable {
     String? lastName,
     String? phoneNumber,
     String? emailAddress,
+    Color? profileColor,
   }) {
     return EditContactState(
       status: status ?? this.status,
@@ -61,6 +65,7 @@ class EditContactState extends Equatable {
       lastName: lastName ?? this.lastName,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       emailAddress: emailAddress ?? this.emailAddress,
+      profileColor: profileColor ?? this.profileColor,
     );
   }
 }
