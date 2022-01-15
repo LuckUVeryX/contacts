@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/domain/entities/contact.dart';
 import '../../../../core/domain/repositories/contacts_repository.dart';
+import '../../../../core/theme/palette.dart';
 
 part 'edit_contact_event.dart';
 part 'edit_contact_state.dart';

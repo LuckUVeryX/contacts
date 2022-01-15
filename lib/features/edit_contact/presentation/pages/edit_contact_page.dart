@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/data/repositories/contacts_repostory_impl.dart';
 import '../../../../core/domain/entities/contact.dart';
-import '../../../../core/theme/palette.dart';
 import '../../../contact_info/presentation/widgets/profile_picture_with_initials.dart';
 import '../bloc/edit_contact_bloc.dart';
 
@@ -60,8 +59,7 @@ class EditContactsPage extends StatelessWidget {
                     initials: state.initials,
                     textStyle: textTheme.headline5
                         ?.copyWith(fontWeight: FontWeight.bold),
-                    backgroundColor: state.initialContact?.profileColor ??
-                        PurpleShades.randomColor,
+                    backgroundColor: state.profileColor,
                   );
                 },
               ),

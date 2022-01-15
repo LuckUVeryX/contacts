@@ -3,14 +3,17 @@ part of 'edit_contact_bloc.dart';
 enum EditContactStatus { initial, loading, done }
 
 class EditContactState extends Equatable {
-  const EditContactState({
+  EditContactState({
     this.status = EditContactStatus.initial,
     this.initialContact,
     this.firstName = '',
     this.lastName = '',
     this.phoneNumber = '',
     this.emailAddress = '',
-  });
+    Color? profileColor,
+  }) : profileColor = profileColor ??
+            initialContact?.profileColor ??
+            PurpleShades.randomColor;
 
   final EditContactStatus status;
   final Contact? initialContact;
@@ -18,6 +21,7 @@ class EditContactState extends Equatable {
   final String lastName;
   final String phoneNumber;
   final String emailAddress;
+  final Color profileColor;
 
   bool get isNewContact => initialContact == null;
 
@@ -52,6 +56,7 @@ class EditContactState extends Equatable {
     String? lastName,
     String? phoneNumber,
     String? emailAddress,
+    Color? profileColor,
   }) {
     return EditContactState(
       status: status ?? this.status,
@@ -60,6 +65,7 @@ class EditContactState extends Equatable {
       lastName: lastName ?? this.lastName,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       emailAddress: emailAddress ?? this.emailAddress,
+      profileColor: profileColor ?? this.profileColor,
     );
   }
 }

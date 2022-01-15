@@ -37,7 +37,7 @@ void main() {
     });
 
     test('should have the correct props', () {
-      const res = EditContactState(
+      final res = EditContactState(
         status: EditContactStatus.initial,
         initialContact: mockInitialContact,
         firstName: 'first',
