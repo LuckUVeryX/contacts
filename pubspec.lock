@@ -218,6 +218,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.1"
+  email_validator:
+    dependency: "direct main"
+    description:
+      name: email_validator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   equatable:
     dependency: "direct main"
     description:
@@ -270,6 +277,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  formz:
+    dependency: "direct main"
+    description:
+      name: formz
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.1"
   frontend_server_client:
     dependency: transitive
     description:
