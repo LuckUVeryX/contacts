@@ -37,7 +37,7 @@ void main() {
         'emits new state with updated firstName',
         build: buildBloc,
         act: (bloc) =>
-            bloc.add( const EditContactFirstNameChanged('newFirstName')),
+            bloc.add(const EditContactFirstNameChanged('newFirstName')),
         expect: () =>
             <EditContactState>[EditContactState(firstName: 'newFirstName')],
       );
@@ -47,7 +47,7 @@ void main() {
         'emits new state with updated lastName',
         build: buildBloc,
         act: (bloc) =>
-            bloc.add( const EditContactLastNameChanged('newLastName')),
+            bloc.add(const EditContactLastNameChanged('newLastName')),
         expect: () =>
             <EditContactState>[EditContactState(lastName: 'newLastName')],
       );
@@ -57,7 +57,7 @@ void main() {
         'emits new state with updated phoneNumber',
         build: buildBloc,
         act: (bloc) =>
-            bloc.add( const EditContactPhoneNumberChanged('newPhoneNumber')),
+            bloc.add(const EditContactPhoneNumberChanged('newPhoneNumber')),
         expect: () =>
             <EditContactState>[EditContactState(phoneNumber: 'newPhoneNumber')],
       );
@@ -66,7 +66,7 @@ void main() {
       blocTest<EditContactBloc, EditContactState>(
         'emits new state with updated email',
         build: buildBloc,
-        act: (bloc) => bloc.add( const EditContactEmailChanged('newEmail')),
+        act: (bloc) => bloc.add(const EditContactEmailChanged('newEmail')),
         expect: () =>
             <EditContactState>[EditContactState(emailAddress: 'newEmail')],
       );
@@ -76,7 +76,7 @@ void main() {
       blocTest<EditContactBloc, EditContactState>(
         'should save contact to repository if no initial contact is provided',
         build: buildBloc,
-        seed: () =>  EditContactState(
+        seed: () => EditContactState(
           firstName: 'firstName',
           lastName: 'lastName',
           emailAddress: 'email',
@@ -84,14 +84,14 @@ void main() {
         ),
         act: (bloc) => bloc.add(EditContactSubmitted()),
         expect: () => <EditContactState>[
-           EditContactState(
+          EditContactState(
             status: EditContactStatus.loading,
             firstName: 'firstName',
             lastName: 'lastName',
             emailAddress: 'email',
             phoneNumber: '+123456789',
           ),
-           EditContactState(
+          EditContactState(
             status: EditContactStatus.done,
             firstName: 'firstName',
             lastName: 'lastName',
@@ -101,7 +101,7 @@ void main() {
         ],
         verify: (bloc) => verify(
           repository.saveContact(
-             const Contact(
+            const Contact(
               id: -1,
               firstName: 'firstName',
               lastName: 'lastName',
@@ -115,7 +115,7 @@ void main() {
       blocTest<EditContactBloc, EditContactState>(
         'should save contact to repository if initial contact is provided',
         build: buildBloc,
-        seed: () =>  EditContactState(
+        seed: () => EditContactState(
           initialContact: const Contact(
             id: -1,
             firstName: 'initFirstName',
@@ -131,7 +131,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(EditContactSubmitted()),
         expect: () => <EditContactState>[
-           EditContactState(
+          EditContactState(
             status: EditContactStatus.loading,
             initialContact: const Contact(
               id: -1,
@@ -146,7 +146,7 @@ void main() {
             emailAddress: 'email',
             phoneNumber: '+123456789',
           ),
-           EditContactState(
+          EditContactState(
             initialContact: const Contact(
               id: -1,
               firstName: 'initFirstName',
@@ -164,7 +164,7 @@ void main() {
         ],
         verify: (bloc) => verify(
           repository.saveContact(
-             const Contact(
+            const Contact(
               id: -1,
               firstName: 'firstName',
               lastName: 'lastName',
