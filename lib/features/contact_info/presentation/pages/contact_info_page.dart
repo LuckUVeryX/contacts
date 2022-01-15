@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/domain/entities/contact.dart';
+import '../../../../core/router/router.gr.dart';
+import '../widgets/profile_picture_with_initials.dart';
 
 class ContactInfoPage extends StatelessWidget {
   const ContactInfoPage({
@@ -12,46 +15,43 @@ class ContactInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Container();
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              AutoRouter.of(context).push(EditContactsRoute(contact: contact));
+            },
+            icon: const Icon(Icons.edit),
+          ),
+        ],
+      ),
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              centerTitle: true,
-              expandedHeight: 160.0,
-              collapsedHeight: kToolbarHeight + 42,
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                title: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 8.0),
-                    CircleAvatar(backgroundColor: contact.profileColor),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      contact.firstName + ' ' + contact.lastName,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+        child: Column(
+          children: [
+            const Spacer(flex: 2),
+            ProfilePictureWithTextWidget(contact: contact, radius: 32.0),
+            const SizedBox(height: 16.0),
+            Text(
+              contact.firstName + ' ' + contact.lastName,
+              textAlign: TextAlign.center,
+              style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const Spacer(),
+            Card(
+              child: ListTile(
+                title: const Text('Phone Number'),
+                subtitle: Text(contact.phoneNumber),
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Container(
-                    color: Colors.red,
-                    height: 80,
-                    width: 10,
-                    margin: EdgeInsets.all(8.0),
-                  );
-                },
-                childCount: 50,
+            Card(
+              child: ListTile(
+                title: const Text('Email Address'),
+                subtitle: Text(contact.emailAddress),
               ),
             ),
+            const Spacer(flex: 2),
           ],
         ),
       ),
