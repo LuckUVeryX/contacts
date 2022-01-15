@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/domain/entities/contact.dart';
-
 class ProfilePictureWithTextWidget extends StatelessWidget {
   const ProfilePictureWithTextWidget({
     Key? key,
-    required this.contact,
+    required this.backgroundColor,
+    required this.initials,
     this.radius,
+    this.textStyle,
   }) : super(key: key);
 
-  final Contact contact;
   final double? radius;
+  final Color backgroundColor;
+  final String initials;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return CircleAvatar(
-      backgroundColor: contact.profileColor,
+      backgroundColor: backgroundColor,
       radius: radius,
       child: Text(
-        contact.initals.toUpperCase(),
-        style: textTheme.headline6,
+        initials.toUpperCase(),
+        style: textStyle ?? textTheme.headline6,
       ),
     );
   }

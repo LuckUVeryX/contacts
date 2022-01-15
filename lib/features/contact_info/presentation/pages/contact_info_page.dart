@@ -31,7 +31,11 @@ class ContactInfoPage extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(flex: 2),
-            ProfilePictureWithTextWidget(contact: contact, radius: 32.0),
+            ProfilePictureWithTextWidget(
+              backgroundColor: contact.profileColor,
+              initials: contact.initials,
+              radius: 32.0,
+            ),
             const SizedBox(height: 16.0),
             Text(
               contact.firstName + ' ' + contact.lastName,

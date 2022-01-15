@@ -12,7 +12,7 @@ class AppTheme {
         secondaryVariant: Palette.accent,
         surface: Palette.background,
         background: Palette.background,
-        error: Palette.accent,
+        error: Colors.red,
         onPrimary: Palette.background,
         onSecondary: Palette.background,
         onSurface: Palette.headline,

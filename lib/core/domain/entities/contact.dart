@@ -36,7 +36,17 @@ class Contact extends Equatable {
     );
   }
 
-  String get initals => firstName[0] + lastName[0];
+  String get initials {
+    String first = '';
+    String last = '';
+    if (firstName.isNotEmpty) {
+      first = firstName[0];
+    }
+    if (lastName.isNotEmpty) {
+      last = lastName[0];
+    }
+    return first + last;
+  }
 
   @override
   List<Object> get props {
