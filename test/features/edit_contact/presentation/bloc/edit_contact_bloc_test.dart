@@ -22,13 +22,13 @@ void main() {
       return EditContactBloc(repository: repository, initialContact: null);
     }
 
-    group('constructor', () {
+    group('ructor', () {
       test('should work properly', () {
         expect(buildBloc, returnsNormally);
       });
 
       test('should have the correct initial state', () {
-        expect(buildBloc().state, const EditContactState());
+        expect(buildBloc().state, EditContactState());
       });
     });
 
@@ -37,10 +37,9 @@ void main() {
         'emits new state with updated firstName',
         build: buildBloc,
         act: (bloc) =>
-            bloc.add(const EditContactFirstNameChanged('newFirstName')),
-        expect: () => const <EditContactState>[
-          EditContactState(firstName: 'newFirstName')
-        ],
+            bloc.add( const EditContactFirstNameChanged('newFirstName')),
+        expect: () =>
+            <EditContactState>[EditContactState(firstName: 'newFirstName')],
       );
     });
     group('EditContactLastNameChanged', () {
@@ -48,9 +47,9 @@ void main() {
         'emits new state with updated lastName',
         build: buildBloc,
         act: (bloc) =>
-            bloc.add(const EditContactLastNameChanged('newLastName')),
+            bloc.add( const EditContactLastNameChanged('newLastName')),
         expect: () =>
-            const <EditContactState>[EditContactState(lastName: 'newLastName')],
+            <EditContactState>[EditContactState(lastName: 'newLastName')],
       );
     });
     group('EditContactPhoneNumberChanged', () {
@@ -58,20 +57,18 @@ void main() {
         'emits new state with updated phoneNumber',
         build: buildBloc,
         act: (bloc) =>
-            bloc.add(const EditContactPhoneNumberChanged('newPhoneNumber')),
-        expect: () => const <EditContactState>[
-          EditContactState(phoneNumber: 'newPhoneNumber')
-        ],
+            bloc.add( const EditContactPhoneNumberChanged('newPhoneNumber')),
+        expect: () =>
+            <EditContactState>[EditContactState(phoneNumber: 'newPhoneNumber')],
       );
     });
     group('EditContactEmailChanged', () {
       blocTest<EditContactBloc, EditContactState>(
         'emits new state with updated email',
         build: buildBloc,
-        act: (bloc) => bloc.add(const EditContactEmailChanged('newEmail')),
-        expect: () => const <EditContactState>[
-          EditContactState(emailAddress: 'newEmail')
-        ],
+        act: (bloc) => bloc.add( const EditContactEmailChanged('newEmail')),
+        expect: () =>
+            <EditContactState>[EditContactState(emailAddress: 'newEmail')],
       );
     });
 
@@ -79,7 +76,7 @@ void main() {
       blocTest<EditContactBloc, EditContactState>(
         'should save contact to repository if no initial contact is provided',
         build: buildBloc,
-        seed: () => const EditContactState(
+        seed: () =>  EditContactState(
           firstName: 'firstName',
           lastName: 'lastName',
           emailAddress: 'email',
@@ -87,14 +84,14 @@ void main() {
         ),
         act: (bloc) => bloc.add(EditContactSubmitted()),
         expect: () => <EditContactState>[
-          const EditContactState(
+           EditContactState(
             status: EditContactStatus.loading,
             firstName: 'firstName',
             lastName: 'lastName',
             emailAddress: 'email',
             phoneNumber: '+123456789',
           ),
-          const EditContactState(
+           EditContactState(
             status: EditContactStatus.done,
             firstName: 'firstName',
             lastName: 'lastName',
@@ -104,7 +101,7 @@ void main() {
         ],
         verify: (bloc) => verify(
           repository.saveContact(
-            const Contact(
+             const Contact(
               id: -1,
               firstName: 'firstName',
               lastName: 'lastName',
@@ -118,8 +115,8 @@ void main() {
       blocTest<EditContactBloc, EditContactState>(
         'should save contact to repository if initial contact is provided',
         build: buildBloc,
-        seed: () => const EditContactState(
-          initialContact: Contact(
+        seed: () =>  EditContactState(
+          initialContact: const Contact(
             id: -1,
             firstName: 'initFirstName',
             lastName: 'initLastName',
@@ -134,9 +131,9 @@ void main() {
         ),
         act: (bloc) => bloc.add(EditContactSubmitted()),
         expect: () => <EditContactState>[
-          const EditContactState(
+           EditContactState(
             status: EditContactStatus.loading,
-            initialContact: Contact(
+            initialContact: const Contact(
               id: -1,
               firstName: 'initFirstName',
               lastName: 'initLastName',
@@ -149,8 +146,8 @@ void main() {
             emailAddress: 'email',
             phoneNumber: '+123456789',
           ),
-          const EditContactState(
-            initialContact: Contact(
+           EditContactState(
+            initialContact: const Contact(
               id: -1,
               firstName: 'initFirstName',
               lastName: 'initLastName',
@@ -167,7 +164,7 @@ void main() {
         ],
         verify: (bloc) => verify(
           repository.saveContact(
-            const Contact(
+             const Contact(
               id: -1,
               firstName: 'firstName',
               lastName: 'lastName',
