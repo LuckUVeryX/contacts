@@ -49,7 +49,6 @@ class EditContactState extends Equatable {
       lastName,
       phoneNumber,
       emailAddress,
-      profileColor,
     ];
   }
 
