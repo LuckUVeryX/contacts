@@ -88,93 +88,102 @@ class EditContactsPage extends StatelessWidget {
 
   Card _buildEmailAddressField() {
     return Card(
-      child: BlocBuilder<EditContactBloc, EditContactState>(
-        buildWhen: (prev, curr) => prev.emailAddress != curr.emailAddress,
-        builder: (context, state) {
-          return TextFormField(
-            initialValue: state.initialContact?.emailAddress,
-            textInputAction: TextInputAction.done,
-            decoration: const InputDecoration(
-              labelText: 'Email Address',
-              errorText: null,
-            ),
-            onChanged: (value) {
-              context
-                  .read<EditContactBloc>()
-                  .add(EditContactEmailChanged(value));
-            },
-          );
-        },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocBuilder<EditContactBloc, EditContactState>(
+          buildWhen: (prev, curr) => prev.emailAddress != curr.emailAddress,
+          builder: (context, state) {
+            return TextFormField(
+              initialValue: state.initialContact?.emailAddress,
+              textInputAction: TextInputAction.done,
+              decoration: const InputDecoration(
+                labelText: 'Email Address',
+                errorText: null,
+              ),
+              onChanged: (value) {
+                context
+                    .read<EditContactBloc>()
+                    .add(EditContactEmailChanged(value));
+              },
+            );
+          },
+        ),
       ),
     );
   }
 
   Card _buildPhoneNumberField() {
     return Card(
-      child: BlocBuilder<EditContactBloc, EditContactState>(
-        buildWhen: (prev, curr) => prev.phoneNumber != curr.phoneNumber,
-        builder: (context, state) {
-          return TextFormField(
-            initialValue: state.initialContact?.phoneNumber,
-            textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(
-              labelText: 'Phone Number',
-              errorText: null,
-            ),
-            onChanged: (value) {
-              context
-                  .read<EditContactBloc>()
-                  .add(EditContactPhoneNumberChanged(value));
-            },
-          );
-        },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocBuilder<EditContactBloc, EditContactState>(
+          buildWhen: (prev, curr) => prev.phoneNumber != curr.phoneNumber,
+          builder: (context, state) {
+            return TextFormField(
+              initialValue: state.initialContact?.phoneNumber,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                labelText: 'Phone Number',
+                errorText: null,
+              ),
+              onChanged: (value) {
+                context
+                    .read<EditContactBloc>()
+                    .add(EditContactPhoneNumberChanged(value));
+              },
+            );
+          },
+        ),
       ),
     );
   }
 
   Card _buildNameFields() {
     return Card(
-      child: Column(
-        children: [
-          BlocBuilder<EditContactBloc, EditContactState>(
-            buildWhen: (prev, curr) => prev.firstName != curr.firstName,
-            builder: (context, state) {
-              return TextFormField(
-                initialValue: state.initialContact?.firstName,
-                textInputAction: TextInputAction.next,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'First Name',
-                  errorText: null,
-                ),
-                onChanged: (value) {
-                  context
-                      .read<EditContactBloc>()
-                      .add(EditContactFirstNameChanged(value));
-                },
-              );
-            },
-          ),
-          BlocBuilder<EditContactBloc, EditContactState>(
-            buildWhen: (prev, curr) => prev.lastName != curr.lastName,
-            builder: (context, state) {
-              return TextFormField(
-                initialValue: state.initialContact?.lastName,
-                textInputAction: TextInputAction.next,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Last Name',
-                  errorText: null,
-                ),
-                onChanged: (value) {
-                  context
-                      .read<EditContactBloc>()
-                      .add(EditContactLastNameChanged(value));
-                },
-              );
-            },
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            BlocBuilder<EditContactBloc, EditContactState>(
+              buildWhen: (prev, curr) => prev.firstName != curr.firstName,
+              builder: (context, state) {
+                return TextFormField(
+                  initialValue: state.initialContact?.firstName,
+                  textInputAction: TextInputAction.next,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'First Name',
+                    errorText: null,
+                  ),
+                  onChanged: (value) {
+                    context
+                        .read<EditContactBloc>()
+                        .add(EditContactFirstNameChanged(value));
+                  },
+                );
+              },
+            ),
+            BlocBuilder<EditContactBloc, EditContactState>(
+              buildWhen: (prev, curr) => prev.lastName != curr.lastName,
+              builder: (context, state) {
+                return TextFormField(
+                  initialValue: state.initialContact?.lastName,
+                  textInputAction: TextInputAction.next,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Last Name',
+                    errorText: null,
+                  ),
+                  onChanged: (value) {
+                    context
+                        .read<EditContactBloc>()
+                        .add(EditContactLastNameChanged(value));
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
