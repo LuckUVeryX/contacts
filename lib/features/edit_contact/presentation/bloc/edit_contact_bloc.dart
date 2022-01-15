@@ -3,11 +3,13 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:formz/formz.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/domain/entities/contact.dart';
 import '../../../../core/domain/repositories/contacts_repository.dart';
 import '../../../../core/theme/palette.dart';
+import '../../domain/entities/email.dart';
 
 part 'edit_contact_event.dart';
 part 'edit_contact_state.dart';
@@ -22,7 +24,7 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
           firstName: initialContact?.firstName ?? '',
           lastName: initialContact?.lastName ?? '',
           phoneNumber: initialContact?.phoneNumber ?? '',
-          emailAddress: initialContact?.emailAddress ?? '',
+          emailAddress: Email.pure(initialContact?.emailAddress ?? ''),
         )) {
     on<EditContactFirstNameChanged>(_onFirstNameChanged);
     on<EditContactLastNameChanged>(_onLastNameChanged);
@@ -58,7 +60,13 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
     EditContactEmailChanged event,
     Emitter<EditContactState> emit,
   ) {
-    emit(state.copyWith(emailAddress: event.email));
+    final email = Email.dirty(event.email);
+    emit(
+      state.copyWith(
+        emailAddress: email.valid ? email : Email.pure(event.email),
+        formStatus: Formz.validate([email]),
+      ),
+    );
   }
 
   void _onSubmitted(
@@ -71,7 +79,7 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
           id: AppConstants.kNewContactId,
           firstName: state.firstName,
           lastName: state.lastName,
-          emailAddress: state.emailAddress,
+          emailAddress: state.emailAddress.value,
           phoneNumber: state.phoneNumber,
           profileColor: Color(
             (Random().nextDouble() * 0xFFFFFF).toInt(),
@@ -81,7 +89,7 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
     contact = contact.copyWith(
       firstName: state.firstName,
       lastName: state.lastName,
-      emailAddress: state.emailAddress,
+      emailAddress: state.emailAddress.value,
       phoneNumber: state.phoneNumber,
     );
 
