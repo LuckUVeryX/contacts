@@ -45,7 +45,8 @@ class ContactsRepository implements IContactsRepository {
       log.v('Editing ${contacts[contactIdx]} to $contact');
       contacts[contactIdx] = contact;
     } else {
-      log.v('Adding $contact');
+      contact = contact.copyWith(id: contacts.length);
+      log.d('Adding $contact');
       contacts.add(contact);
     }
     _contactsStreamController.add(contacts);
