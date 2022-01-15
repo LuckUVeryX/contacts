@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/domain/entities/contact.dart';
 import '../../../../core/router/router.gr.dart';
+import '../bloc/contacts_list_bloc.dart';
 
 class ContactCard extends StatelessWidget {
   const ContactCard({
@@ -23,7 +25,8 @@ class ContactCard extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: () {
-          AutoRouter.of(context).push(ContactInfoRoute(contact: contact));
+          AutoRouter.of(context).push(ContactInfoRoute(
+              id: contact.id, bloc: context.read<ContactsListBloc>()));
         },
         child: Dismissible(
           key: Key(contact.id.toString()),
