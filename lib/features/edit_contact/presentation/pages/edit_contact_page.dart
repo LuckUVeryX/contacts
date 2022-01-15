@@ -49,21 +49,8 @@ class EditContactsPage extends StatelessWidget {
               }),
             ],
           ),
-          body: Column(
-            children: [
-              const Spacer(flex: 2),
-              BlocBuilder<EditContactBloc, EditContactState>(
-                builder: (context, state) {
-                  return ProfilePictureWithTextWidget(
-                    radius: 48.0,
-                    initials: state.initials,
-                    textStyle: textTheme.headline5
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                    backgroundColor: state.profileColor,
-                  );
-                },
-              ),
-              const Spacer(flex: 2),
+          body: GestureDetector(
+            onTap: FocusScope.of(context).unfocus,
               Card(
                 child: Column(
                   children: [
