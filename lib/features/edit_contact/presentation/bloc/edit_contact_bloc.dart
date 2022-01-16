@@ -7,8 +7,7 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/domain/entities/contact.dart';
 import '../../../../core/domain/repositories/contacts_repository.dart';
 import '../../../../core/theme/palette.dart';
-import '../../domain/entities/email.dart';
-import '../../domain/entities/phone_number.dart';
+import '../../domain/entities/entities.dart';
 
 part 'edit_contact_event.dart';
 part 'edit_contact_state.dart';
@@ -20,8 +19,8 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
   })  : _repository = repository,
         super(EditContactState(
           initialContact: initialContact,
-          firstName: initialContact?.firstName ?? '',
-          lastName: initialContact?.lastName ?? '',
+          firstName: FirstName.pure(initialContact?.firstName ?? ''),
+          lastName: LastName.pure(initialContact?.lastName ?? ''),
           phoneNumber: PhoneNumber.pure(initialContact?.phoneNumber ?? ''),
           emailAddress: Email.pure(initialContact?.emailAddress ?? ''),
         )) {
@@ -38,21 +37,31 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
     EditContactFirstNameChanged event,
     Emitter<EditContactState> emit,
   ) {
-    emit(
-      state.copyWith(
-        firstName: event.firstName,
-        formStatus: Formz.validate([state.phoneNumber, state.emailAddress]),
-      ),
-    );
+    final firstName = FirstName.dirty(event.firstName);
+    emit(state.copyWith(
+      firstName: firstName.valid ? firstName : FirstName.pure(event.firstName),
+      formStatus: Formz.validate([
+        firstName,
+        state.lastName,
+        state.phoneNumber,
+        state.emailAddress,
+      ]),
+    ));
   }
 
   void _onLastNameChanged(
     EditContactLastNameChanged event,
     Emitter<EditContactState> emit,
   ) {
+    final lastName = LastName.dirty(event.lastName);
     emit(state.copyWith(
-      lastName: event.lastName,
-      formStatus: Formz.validate([state.phoneNumber, state.emailAddress]),
+      lastName: lastName.valid ? lastName : LastName.pure(event.lastName),
+      formStatus: Formz.validate([
+        state.firstName,
+        lastName,
+        state.phoneNumber,
+        state.emailAddress,
+      ]),
     ));
   }
 
@@ -62,12 +71,18 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
   ) {
     final phoneNumber = PhoneNumber.dirty(event.phoneNumber);
     emit(state.copyWith(
-        phoneNumber: phoneNumber.valid
-            ? phoneNumber
-            : PhoneNumber.pure(
-                event.phoneNumber,
-              ),
-        formStatus: Formz.validate([phoneNumber, state.emailAddress])));
+      phoneNumber: phoneNumber.valid
+          ? phoneNumber
+          : PhoneNumber.pure(
+              event.phoneNumber,
+            ),
+      formStatus: Formz.validate([
+        state.firstName,
+        state.lastName,
+        phoneNumber,
+        state.emailAddress,
+      ]),
+    ));
   }
 
   void _onEmailChanged(
@@ -75,27 +90,34 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
     Emitter<EditContactState> emit,
   ) {
     final email = Email.dirty(event.email);
-    emit(
-      state.copyWith(
-        emailAddress: email.valid ? email : Email.pure(event.email),
-        formStatus: Formz.validate([state.phoneNumber, email]),
-      ),
-    );
+    emit(state.copyWith(
+      emailAddress: email.valid ? email : Email.pure(event.email),
+      formStatus: Formz.validate([
+        state.firstName,
+        state.lastName,
+        state.phoneNumber,
+        email,
+      ]),
+    ));
   }
 
   void _onSubmitted(
     EditContactSubmitted event,
     Emitter<EditContactState> emit,
   ) {
+    final firstName = FirstName.dirty(state.firstName.value);
+    final lastName = LastName.dirty(state.lastName.value);
     final email = Email.dirty(state.emailAddress.value);
     final phoneNumber = PhoneNumber.dirty(state.phoneNumber.value);
 
     emit(
       state.copyWith(
+        firstName: firstName,
+        lastName: lastName,
         emailAddress: email,
         phoneNumber: phoneNumber,
         formStatus: Formz.validate(
-          [phoneNumber, email],
+          [firstName, lastName, phoneNumber, email],
         ),
       ),
     );
@@ -105,16 +127,16 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
       var contact = state.initialContact ??
           Contact(
             id: AppConstants.kNewContactId,
-            firstName: state.firstName,
-            lastName: state.lastName,
+            firstName: state.firstName.value,
+            lastName: state.lastName.value,
             emailAddress: state.emailAddress.value,
             phoneNumber: state.phoneNumber.value,
             profileColor: state.profileColor,
           );
 
       contact = contact.copyWith(
-        firstName: state.firstName,
-        lastName: state.lastName,
+        firstName: state.firstName.value,
+        lastName: state.lastName.value,
         emailAddress: state.emailAddress.value,
         phoneNumber: state.phoneNumber.value,
       );

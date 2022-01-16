@@ -4,8 +4,8 @@ class EditContactState extends Equatable {
   EditContactState({
     this.formStatus = FormzStatus.pure,
     this.initialContact,
-    this.firstName = '',
-    this.lastName = '',
+    this.firstName = const FirstName.pure(),
+    this.lastName = const LastName.pure(),
     this.phoneNumber = const PhoneNumber.pure(),
     this.emailAddress = const Email.pure(),
     Color? profileColor,
@@ -15,8 +15,8 @@ class EditContactState extends Equatable {
 
   final FormzStatus formStatus;
   final Contact? initialContact;
-  final String firstName;
-  final String lastName;
+  final FirstName firstName;
+  final LastName lastName;
   final PhoneNumber phoneNumber;
   final Email emailAddress;
   final Color profileColor;
@@ -26,11 +26,11 @@ class EditContactState extends Equatable {
   String get initials {
     String first = '';
     String last = '';
-    if (firstName.isNotEmpty) {
-      first = firstName[0];
+    if (firstName.value.isNotEmpty) {
+      first = firstName.value[0];
     }
-    if (lastName.isNotEmpty) {
-      last = lastName[0];
+    if (lastName.value.isNotEmpty) {
+      last = lastName.value[0];
     }
     return '$first$last';
   }
@@ -50,8 +50,8 @@ class EditContactState extends Equatable {
   EditContactState copyWith({
     FormzStatus? formStatus,
     Contact? initialContact,
-    String? firstName,
-    String? lastName,
+    FirstName? firstName,
+    LastName? lastName,
     PhoneNumber? phoneNumber,
     Email? emailAddress,
     Color? profileColor,
