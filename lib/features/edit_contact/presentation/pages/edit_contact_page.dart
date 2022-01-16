@@ -59,14 +59,13 @@ class EditContactsPage extends StatelessWidget {
               BlocBuilder<EditContactBloc, EditContactState>(
                   builder: (context, state) {
                 return IconButton(
-                  onPressed:
-                      state.formStatus.isValidated || state.formStatus.isPure
-                          ? () {
-                              context
-                                  .read<EditContactBloc>()
-                                  .add(EditContactSubmitted());
-                            }
-                          : null,
+                  onPressed: state.formStatus.isValidated
+                      ? () {
+                          context
+                              .read<EditContactBloc>()
+                              .add(EditContactSubmitted());
+                        }
+                      : null,
                   icon: const Icon(Icons.done),
                 );
               }),
@@ -123,7 +122,7 @@ class EditContactsPage extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: 'Email Address',
-                errorText: state.emailAddress.valid || state.emailAddress.pure
+                errorText: state.emailAddress.valid
                     ? null
                     : 'Please ensure that email entered is valid',
               ),
@@ -152,7 +151,7 @@ class EditContactsPage extends StatelessWidget {
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 labelText: 'Phone Number',
-                errorText: state.phoneNumber.valid || state.phoneNumber.pure
+                errorText: state.phoneNumber.valid
                     ? null
                     : 'Please ensure that phone number entered is valid',
               ),
@@ -182,9 +181,11 @@ class EditContactsPage extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.words,
                   keyboardType: TextInputType.name,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'First Name',
-                    errorText: null,
+                    errorText: state.firstName.valid
+                        ? null
+                        : 'First Name cannot be left empty',
                   ),
                   onChanged: (value) {
                     context
@@ -202,9 +203,11 @@ class EditContactsPage extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.words,
                   keyboardType: TextInputType.name,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Last Name',
-                    errorText: null,
+                    errorText: state.lastName.valid
+                        ? null
+                        : 'Last Name cannot be left empty',
                   ),
                   onChanged: (value) {
                     context

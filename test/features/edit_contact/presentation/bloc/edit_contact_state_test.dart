@@ -1,5 +1,6 @@
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/features/edit_contact/domain/entities/email.dart';
+import 'package:contacts/features/edit_contact/domain/entities/names.dart';
 import 'package:contacts/features/edit_contact/domain/entities/phone_number.dart';
 import 'package:contacts/features/edit_contact/presentation/bloc/edit_contact_bloc.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,8 @@ void main() {
 
     EditContactState createState({
       Contact? initialContact,
-      String firstName = '',
-      String lastName = '',
+      FirstName firstName = const FirstName.pure(),
+      LastName lastName = const LastName.pure(),
       PhoneNumber phoneNumber = const PhoneNumber.pure(),
       Email emailAddress = const Email.pure(),
       FormzStatus formStatus = FormzStatus.pure,
@@ -43,8 +44,8 @@ void main() {
       final res = EditContactState(
         formStatus: FormzStatus.pure,
         initialContact: mockInitialContact,
-        firstName: 'first',
-        lastName: 'last',
+        firstName: const FirstName.pure('first'),
+        lastName: const LastName.pure('last'),
         phoneNumber: const PhoneNumber.pure('+123 45678'),
         emailAddress: const Email.pure('email'),
       );
@@ -52,8 +53,8 @@ void main() {
       final expected = <Object?>[
         FormzStatus.pure,
         mockInitialContact,
-        'first',
-        'last',
+        const FirstName.pure('first'),
+        const LastName.pure('last'),
         const PhoneNumber.pure('+123 45678'),
         const Email.pure('email'),
       ];
@@ -101,8 +102,8 @@ void main() {
       test('should replace every non null parameter', () {
         final res = createState().copyWith(
           initialContact: mockInitialContact,
-          firstName: '',
-          lastName: '',
+          firstName: const FirstName.pure(),
+          lastName: const LastName.pure(),
           emailAddress: const Email.pure(),
           phoneNumber: const PhoneNumber.pure(),
         );
@@ -111,8 +112,8 @@ void main() {
           res,
           createState(
             initialContact: mockInitialContact,
-            firstName: '',
-            lastName: '',
+            firstName: const FirstName.pure(),
+            lastName: const LastName.pure(),
             emailAddress: const Email.pure(),
             phoneNumber: const PhoneNumber.pure(),
           ),
