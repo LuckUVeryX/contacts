@@ -1,27 +1,23 @@
 part of 'edit_contact_bloc.dart';
 
-enum EditContactStatus { initial, loading, done }
-
 class EditContactState extends Equatable {
   EditContactState({
-    this.status = EditContactStatus.initial,
     this.formStatus = FormzStatus.pure,
     this.initialContact,
     this.firstName = '',
     this.lastName = '',
-    this.phoneNumber = '',
+    this.phoneNumber = const PhoneNumber.pure(),
     this.emailAddress = const Email.pure(),
     Color? profileColor,
   }) : profileColor = profileColor ??
             initialContact?.profileColor ??
             PurpleShades.randomColor;
 
-  final EditContactStatus status;
   final FormzStatus formStatus;
   final Contact? initialContact;
   final String firstName;
   final String lastName;
-  final String phoneNumber;
+  final PhoneNumber phoneNumber;
   final Email emailAddress;
   final Color profileColor;
 
@@ -42,7 +38,6 @@ class EditContactState extends Equatable {
   @override
   List<Object?> get props {
     return [
-      status,
       formStatus,
       initialContact,
       firstName,
@@ -53,17 +48,15 @@ class EditContactState extends Equatable {
   }
 
   EditContactState copyWith({
-    EditContactStatus? status,
     FormzStatus? formStatus,
     Contact? initialContact,
     String? firstName,
     String? lastName,
-    String? phoneNumber,
+    PhoneNumber? phoneNumber,
     Email? emailAddress,
     Color? profileColor,
   }) {
     return EditContactState(
-      status: status ?? this.status,
       formStatus: formStatus ?? this.formStatus,
       initialContact: initialContact ?? this.initialContact,
       firstName: firstName ?? this.firstName,
@@ -76,6 +69,6 @@ class EditContactState extends Equatable {
 
   @override
   String toString() {
-    return 'EditContactState(status: $status, formStatus: $formStatus, initialContact: $initialContact, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, profileColor: $profileColor)';
+    return 'EditContactState(formStatus: $formStatus, initialContact: $initialContact, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, profileColor: $profileColor)';
   }
 }
