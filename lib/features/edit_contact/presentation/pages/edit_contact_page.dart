@@ -4,7 +4,7 @@ import 'package:formz/formz.dart';
 
 import '../../../../core/data/repositories/contacts_repostory_impl.dart';
 import '../../../../core/domain/entities/contact.dart';
-import '../../../contact_info/presentation/widgets/profile_picture_with_initials.dart';
+import '../../../contacts_list/presentation/widgets/profile_picture_with_initials.dart';
 import '../bloc/edit_contact_bloc.dart';
 
 class EditContactsPage extends StatelessWidget {
@@ -107,7 +107,8 @@ class EditContactsPage extends StatelessWidget {
         return ProfilePictureWithTextWidget(
           radius: 48.0,
           initials: state.initials,
-          textStyle: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
+          textStyle: textTheme.headline4
+              ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
           backgroundColor: state.profileColor,
         );
       },
