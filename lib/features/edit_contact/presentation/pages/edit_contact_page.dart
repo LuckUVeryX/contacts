@@ -81,17 +81,7 @@ class EditContactsPage extends StatelessWidget {
                 child: Column(
                   children: [
                     const Spacer(flex: 2),
-                    BlocBuilder<EditContactBloc, EditContactState>(
-                      builder: (context, state) {
-                        return ProfilePictureWithTextWidget(
-                          radius: 48.0,
-                          initials: state.initials,
-                          textStyle: textTheme.headline5
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                          backgroundColor: state.profileColor,
-                        );
-                      },
-                    ),
+                    _buildProfilePicture(textTheme),
                     const Spacer(flex: 2),
                     _buildNameFields(),
                     const Spacer(flex: 2),
@@ -109,6 +99,21 @@ class EditContactsPage extends StatelessWidget {
     );
   }
 
+  BlocBuilder<EditContactBloc, EditContactState> _buildProfilePicture(
+    TextTheme textTheme,
+  ) {
+    return BlocBuilder<EditContactBloc, EditContactState>(
+      builder: (context, state) {
+        return ProfilePictureWithTextWidget(
+          radius: 48.0,
+          initials: state.initials,
+          textStyle: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
+          backgroundColor: state.profileColor,
+        );
+      },
+    );
+  }
+
   Card _buildEmailAddressField() {
     return Card(
       child: Padding(
@@ -122,7 +127,7 @@ class EditContactsPage extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: 'Email Address',
-                errorText: state.emailAddress.valid
+                errorText: state.emailAddress.valid || state.formStatus.isPure
                     ? null
                     : 'Please ensure that email entered is valid',
               ),
@@ -151,7 +156,7 @@ class EditContactsPage extends StatelessWidget {
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 labelText: 'Phone Number',
-                errorText: state.phoneNumber.valid
+                errorText: state.phoneNumber.valid || state.formStatus.isPure
                     ? null
                     : 'Please ensure that phone number entered is valid',
               ),
@@ -183,7 +188,7 @@ class EditContactsPage extends StatelessWidget {
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'First Name',
-                    errorText: state.firstName.valid
+                    errorText: state.firstName.valid || state.formStatus.isPure
                         ? null
                         : 'First Name cannot be left empty',
                   ),
@@ -205,7 +210,7 @@ class EditContactsPage extends StatelessWidget {
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'Last Name',
-                    errorText: state.lastName.valid
+                    errorText: state.lastName.valid || state.formStatus.isPure
                         ? null
                         : 'Last Name cannot be left empty',
                   ),
