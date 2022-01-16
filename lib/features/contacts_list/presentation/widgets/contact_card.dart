@@ -73,14 +73,6 @@ class ContactCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    AutoRouter.of(context).push(
-                      EditContactsRoute(contact: contact),
-                    );
-                  },
-                  icon: const Icon(Icons.more_vert),
-                )
               ],
             ),
           ),
