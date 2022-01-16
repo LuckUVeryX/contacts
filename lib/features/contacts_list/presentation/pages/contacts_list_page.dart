@@ -216,7 +216,7 @@ class _EmptyContactsView extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 80,
+          bottom: 100,
           right: 4,
           child: Icon(
             Icons.arrow_downward,
