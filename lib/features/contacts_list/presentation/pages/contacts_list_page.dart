@@ -125,6 +125,8 @@ class _ContactsListViewState extends State<_ContactsListView> {
       child: GroupedListView(
         controller: _scrollController,
         elements: widget.state.contacts,
+        useStickyGroupSeparators: true,
+        padding: const EdgeInsets.only(bottom: 160.0),
         groupBy: (Contact element) => element.lastName[0],
         itemComparator: (Contact a, Contact b) {
           // Orders by lastName then by firstName
@@ -216,7 +218,7 @@ class _EmptyContactsView extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 80,
+          bottom: 100,
           right: 4,
           child: Icon(
             Icons.arrow_downward,
