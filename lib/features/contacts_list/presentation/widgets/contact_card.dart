@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/domain/entities/contact.dart';
 import '../../../../core/router/router.gr.dart';
+import '../../../contact_info/presentation/widgets/profile_picture_with_initials.dart';
 import '../bloc/contacts_list_bloc.dart';
 
 class ContactCard extends StatelessWidget {
@@ -51,8 +52,9 @@ class ContactCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleAvatar(
+                ProfilePictureWithTextWidget(
                   radius: 24.0,
+                  initials: contact.initials,
                   backgroundColor: contact.profileColor,
                 ),
                 const SizedBox(width: 32.0),
