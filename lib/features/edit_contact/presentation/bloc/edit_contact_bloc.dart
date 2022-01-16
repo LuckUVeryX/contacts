@@ -62,7 +62,11 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
   ) {
     final phoneNumber = PhoneNumber.dirty(event.phoneNumber);
     emit(state.copyWith(
-        phoneNumber: phoneNumber,
+        phoneNumber: phoneNumber.valid
+            ? phoneNumber
+            : PhoneNumber.pure(
+                event.phoneNumber,
+              ),
         formStatus: Formz.validate([phoneNumber, state.emailAddress])));
   }
 
@@ -73,7 +77,7 @@ class EditContactBloc extends Bloc<EditContactEvent, EditContactState> {
     final email = Email.dirty(event.email);
     emit(
       state.copyWith(
-        emailAddress: email,
+        emailAddress: email.valid ? email : Email.pure(event.email),
         formStatus: Formz.validate([state.phoneNumber, email]),
       ),
     );
