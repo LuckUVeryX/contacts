@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 import '../../../../core/data/repositories/contacts_repostory_impl.dart';
 import '../../../../core/domain/entities/contact.dart';
@@ -19,14 +20,31 @@ class EditContactsPage extends StatelessWidget {
         initialContact: contact,
         repository: context.read<ContactsRepository>(),
       ),
-      child: BlocListener<EditContactBloc, EditContactState>(
-        listenWhen: (prev, curr) {
-          return prev.status != curr.status &&
-              curr.status == EditContactStatus.done;
-        },
-        listener: (context, _) {
-          Navigator.of(context).pop();
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<EditContactBloc, EditContactState>(
+            listenWhen: (prev, curr) {
+              return prev.formStatus != curr.formStatus &&
+                  curr.formStatus == FormzStatus.submissionSuccess;
+            },
+            listener: (context, _) {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              Navigator.of(context).pop();
+            },
+          ),
+          BlocListener<EditContactBloc, EditContactState>(
+            listenWhen: (previous, current) {
+              return previous.formStatus != current.formStatus &&
+                  current.formStatus == FormzStatus.submissionInProgress;
+            },
+            listener: (context, _) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                    const SnackBar(content: Text('Saving contact...')));
+            },
+          ),
+        ],
         child: Scaffold(
           appBar: AppBar(
             title: BlocBuilder<EditContactBloc, EditContactState>(
@@ -38,11 +56,17 @@ class EditContactsPage extends StatelessWidget {
               },
             ),
             actions: [
-              Builder(builder: (context) {
+              BlocBuilder<EditContactBloc, EditContactState>(
+                  builder: (context, state) {
                 return IconButton(
-                  onPressed: () {
-                    context.read<EditContactBloc>().add(EditContactSubmitted());
-                  },
+                  onPressed:
+                      state.formStatus.isValidated || state.formStatus.isPure
+                          ? () {
+                              context
+                                  .read<EditContactBloc>()
+                                  .add(EditContactSubmitted());
+                            }
+                          : null,
                   icon: const Icon(Icons.done),
                 );
               }),
@@ -96,9 +120,10 @@ class EditContactsPage extends StatelessWidget {
             return TextFormField(
               initialValue: state.initialContact?.emailAddress,
               textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: 'Email Address',
-                errorText: state.emailAddress.valid
+                errorText: state.emailAddress.valid || state.emailAddress.pure
                     ? null
                     : 'Please ensure that email entered is valid',
               ),
@@ -124,9 +149,12 @@ class EditContactsPage extends StatelessWidget {
             return TextFormField(
               initialValue: state.initialContact?.phoneNumber,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
                 labelText: 'Phone Number',
-                errorText: null,
+                errorText: state.phoneNumber.valid || state.phoneNumber.pure
+                    ? null
+                    : 'Please ensure that phone number entered is valid',
               ),
               onChanged: (value) {
                 context
@@ -153,6 +181,7 @@ class EditContactsPage extends StatelessWidget {
                   initialValue: state.initialContact?.firstName,
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.words,
+                  keyboardType: TextInputType.name,
                   decoration: const InputDecoration(
                     labelText: 'First Name',
                     errorText: null,
@@ -172,6 +201,7 @@ class EditContactsPage extends StatelessWidget {
                   initialValue: state.initialContact?.lastName,
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.words,
+                  keyboardType: TextInputType.name,
                   decoration: const InputDecoration(
                     labelText: 'Last Name',
                     errorText: null,

@@ -1,5 +1,6 @@
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/features/edit_contact/domain/entities/email.dart';
+import 'package:contacts/features/edit_contact/domain/entities/phone_number.dart';
 import 'package:contacts/features/edit_contact/presentation/bloc/edit_contact_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,20 +18,20 @@ void main() {
     );
 
     EditContactState createState({
-      EditContactStatus status = EditContactStatus.initial,
       Contact? initialContact,
       String firstName = '',
       String lastName = '',
-      String phoneNumber = '',
+      PhoneNumber phoneNumber = const PhoneNumber.pure(),
       Email emailAddress = const Email.pure(),
+      FormzStatus formStatus = FormzStatus.pure,
     }) {
       return EditContactState(
-        status: status,
         initialContact: initialContact,
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
         emailAddress: emailAddress,
+        formStatus: formStatus,
       );
     }
 
@@ -40,22 +41,20 @@ void main() {
 
     test('should have the correct props', () {
       final res = EditContactState(
-        status: EditContactStatus.initial,
         formStatus: FormzStatus.pure,
         initialContact: mockInitialContact,
         firstName: 'first',
         lastName: 'last',
-        phoneNumber: '+123 45678',
+        phoneNumber: const PhoneNumber.pure('+123 45678'),
         emailAddress: const Email.pure('email'),
       );
 
       final expected = <Object?>[
-        EditContactStatus.initial,
         FormzStatus.pure,
         mockInitialContact,
         'first',
         'last',
-        '+123 45678',
+        const PhoneNumber.pure('+123 45678'),
         const Email.pure('email'),
       ];
 
@@ -93,7 +92,7 @@ void main() {
           initialContact: null,
           lastName: null,
           phoneNumber: null,
-          status: null,
+          formStatus: null,
         );
 
         expect(res, createState());
@@ -101,23 +100,21 @@ void main() {
 
       test('should replace every non null parameter', () {
         final res = createState().copyWith(
-          status: EditContactStatus.loading,
           initialContact: mockInitialContact,
           firstName: '',
           lastName: '',
-          emailAddress: const Email.pure(''),
-          phoneNumber: '',
+          emailAddress: const Email.pure(),
+          phoneNumber: const PhoneNumber.pure(),
         );
 
         expect(
           res,
           createState(
-            status: EditContactStatus.loading,
             initialContact: mockInitialContact,
             firstName: '',
             lastName: '',
-            emailAddress: const Email.pure(''),
-            phoneNumber: '',
+            emailAddress: const Email.pure(),
+            phoneNumber: const PhoneNumber.pure(),
           ),
         );
       });

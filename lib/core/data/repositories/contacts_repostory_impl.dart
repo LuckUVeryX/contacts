@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 
+import '../../constants/app_constants.dart';
 import '../../domain/entities/contact.dart';
 import '../../domain/repositories/contacts_repository.dart';
 import '../../errors/exceptions.dart';
@@ -25,7 +26,7 @@ class ContactsRepository implements IContactsRepository {
     log.d('deleteContact with id: $id');
     final contacts = [..._contactsStreamController.value];
     final contactIdx = contacts.indexWhere((element) => element.id == id);
-    if (contactIdx == -1) {
+    if (contactIdx == AppConstants.kNewContactId) {
       log.e('Invalid contactIdx: $contactIdx');
       throw ContactNotFoundException();
     } else {
@@ -42,14 +43,14 @@ class ContactsRepository implements IContactsRepository {
     final contactIdx =
         contacts.indexWhere((element) => element.id == contact.id);
     if (contactIdx >= 0) {
-      log.v('Editing ${contacts[contactIdx]} to $contact');
+      log.d('Editing ${contacts[contactIdx]} to $contact');
       contacts[contactIdx] = contact;
-    } else {
-      log.v('Adding $contact');
+    } else if (contactIdx == AppConstants.kNewContactId) {
+      log.d('Adding $contact');
       contacts.add(contact);
     }
     _contactsStreamController.add(contacts);
-    log.v('saved contact $contact');
+    log.d('saved contact $contact');
   }
 
   @override
