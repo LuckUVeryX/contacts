@@ -35,7 +35,7 @@ class ContactCard extends StatelessWidget {
           confirmDismiss: confirmDismiss,
           onDismissed: onDismissed,
           background: Container(
-            color: colorScheme.error,
+            color: colorScheme.primary,
             child: Row(
               children: const [
                 Spacer(),
