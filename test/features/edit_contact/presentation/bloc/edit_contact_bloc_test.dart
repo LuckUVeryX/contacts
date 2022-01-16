@@ -1,8 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:contacts/core/domain/entities/contact.dart';
 import 'package:contacts/core/domain/repositories/contacts_repository.dart';
-import 'package:contacts/features/edit_contact/domain/entities/email.dart';
-import 'package:contacts/features/edit_contact/domain/entities/phone_number.dart';
+import 'package:contacts/features/edit_contact/domain/entities/entities.dart';
+
 import 'package:contacts/features/edit_contact/presentation/bloc/edit_contact_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -41,8 +41,12 @@ void main() {
         build: buildBloc,
         act: (bloc) =>
             bloc.add(const EditContactFirstNameChanged('newFirstName')),
-        expect: () =>
-            <EditContactState>[EditContactState(firstName: 'newFirstName')],
+        expect: () => <EditContactState>[
+          EditContactState().copyWith(
+            firstName: const FirstName.dirty('newFirstName'),
+            formStatus: FormzStatus.invalid,
+          )
+        ],
       );
     });
     group('EditContactLastNameChanged', () {
@@ -51,40 +55,23 @@ void main() {
         build: buildBloc,
         act: (bloc) =>
             bloc.add(const EditContactLastNameChanged('newLastName')),
-        expect: () =>
-            <EditContactState>[EditContactState(lastName: 'newLastName')],
+        expect: () => <EditContactState>[
+          EditContactState().copyWith(
+            lastName: const LastName.dirty('newLastName'),
+            formStatus: FormzStatus.invalid,
+          )
+        ],
       );
     });
     group('EditContactPhoneNumberChanged', () {
       blocTest<EditContactBloc, EditContactState>(
-        'emits FormzStatus.valid with updated phoneNumber if valid phone number is given',
+        'emits new state with updated phoneNumber if phone number is given',
         build: buildBloc,
-        seed: () => EditContactState(
-          formStatus: FormzStatus.valid,
-          emailAddress: const Email.pure('valid@email.com'),
-        ),
         act: (bloc) =>
             bloc.add(const EditContactPhoneNumberChanged('97299957')),
         expect: () => <EditContactState>[
-          EditContactState(
+          EditContactState().copyWith(
             phoneNumber: const PhoneNumber.dirty('97299957'),
-            emailAddress: const Email.pure('valid@email.com'),
-            formStatus: FormzStatus.valid,
-          )
-        ],
-      );
-      blocTest<EditContactBloc, EditContactState>(
-        'emits new state with updated phoneNumber if invalid phone number is given',
-        build: buildBloc,
-        seed: () => EditContactState(
-          formStatus: FormzStatus.valid,
-          emailAddress: const Email.pure('valid@email.com'),
-        ),
-        act: (bloc) => bloc.add(const EditContactPhoneNumberChanged('invalid')),
-        expect: () => <EditContactState>[
-          EditContactState(
-            phoneNumber: const PhoneNumber.pure('invalid'),
-            emailAddress: const Email.pure('valid@email.com'),
             formStatus: FormzStatus.invalid,
           )
         ],
@@ -92,39 +79,15 @@ void main() {
     });
     group('EditContactEmailChanged', () {
       blocTest<EditContactBloc, EditContactState>(
-        'emits FormzStatus.valid state with updated email if valid email is given',
+        'emits new state with updated email if email is given',
         build: buildBloc,
-        seed: () => EditContactState(
-          formStatus: FormzStatus.valid,
-          phoneNumber: const PhoneNumber.pure('97299957'),
-        ),
         act: (bloc) =>
             bloc.add(const EditContactEmailChanged('valid@example.com')),
         expect: () {
           return <EditContactState>[
-            EditContactState(
+            EditContactState().copyWith(
               emailAddress: const Email.dirty('valid@example.com'),
-              phoneNumber: const PhoneNumber.pure('97299957'),
-              formStatus: FormzStatus.valid,
-            )
-          ];
-        },
-      );
-      blocTest<EditContactBloc, EditContactState>(
-        'emits FormzStatus.invalid state with updated email if invalid email is given',
-        build: buildBloc,
-        seed: () => EditContactState(
-          formStatus: FormzStatus.valid,
-          phoneNumber: const PhoneNumber.pure('97299957'),
-        ),
-        act: (bloc) =>
-            bloc.add(const EditContactEmailChanged('invalid@example')),
-        expect: () {
-          return <EditContactState>[
-            EditContactState(
-              emailAddress: const Email.pure('invalid@example'),
               formStatus: FormzStatus.invalid,
-              phoneNumber: const PhoneNumber.pure('97299957'),
             )
           ];
         },
@@ -136,30 +99,30 @@ void main() {
         'should save contact to repository if no initial contact is provided',
         build: buildBloc,
         seed: () => EditContactState(
-          firstName: 'firstName',
-          lastName: 'lastName',
+          firstName: const FirstName.pure('firstName'),
+          lastName: const LastName.pure('lastName'),
           emailAddress: const Email.pure('valid@email.com'),
           phoneNumber: const PhoneNumber.pure('+123456789'),
         ),
         act: (bloc) => bloc.add(EditContactSubmitted()),
         expect: () => <EditContactState>[
           EditContactState(
-            firstName: 'firstName',
-            lastName: 'lastName',
+            firstName: const FirstName.dirty('firstName'),
+            lastName: const LastName.dirty('lastName'),
             emailAddress: const Email.dirty('valid@email.com'),
             phoneNumber: const PhoneNumber.dirty('+123456789'),
             formStatus: FormzStatus.valid,
           ),
           EditContactState(
-            firstName: 'firstName',
-            lastName: 'lastName',
+            firstName: const FirstName.dirty('firstName'),
+            lastName: const LastName.dirty('lastName'),
             emailAddress: const Email.dirty('valid@email.com'),
             phoneNumber: const PhoneNumber.dirty('+123456789'),
             formStatus: FormzStatus.submissionInProgress,
           ),
           EditContactState(
-            firstName: 'firstName',
-            lastName: 'lastName',
+            firstName: const FirstName.dirty('firstName'),
+            lastName: const LastName.dirty('lastName'),
             emailAddress: const Email.dirty('valid@email.com'),
             phoneNumber: const PhoneNumber.dirty('+123456789'),
             formStatus: FormzStatus.submissionSuccess,
@@ -190,8 +153,8 @@ void main() {
             emailAddress: 'initEmail',
             profileColor: Colors.red,
           ),
-          firstName: 'firstName',
-          lastName: 'lastName',
+          firstName: const FirstName.dirty('firstName'),
+          lastName: const LastName.dirty('lastName'),
           emailAddress: const Email.pure('valid@email.com'),
           phoneNumber: const PhoneNumber.pure('+123456789'),
         ),
@@ -206,8 +169,8 @@ void main() {
               emailAddress: 'initEmail',
               profileColor: Colors.red,
             ),
-            firstName: 'firstName',
-            lastName: 'lastName',
+            firstName: const FirstName.dirty('firstName'),
+            lastName: const LastName.dirty('lastName'),
             emailAddress: const Email.dirty('valid@email.com'),
             phoneNumber: const PhoneNumber.dirty('+123456789'),
             formStatus: FormzStatus.valid,
@@ -221,8 +184,8 @@ void main() {
               emailAddress: 'initEmail',
               profileColor: Colors.red,
             ),
-            firstName: 'firstName',
-            lastName: 'lastName',
+            firstName: const FirstName.dirty('firstName'),
+            lastName: const LastName.dirty('lastName'),
             emailAddress: const Email.dirty('valid@email.com'),
             phoneNumber: const PhoneNumber.dirty('+123456789'),
             formStatus: FormzStatus.submissionInProgress,
@@ -236,8 +199,8 @@ void main() {
               emailAddress: 'initEmail',
               profileColor: Colors.red,
             ),
-            firstName: 'firstName',
-            lastName: 'lastName',
+            firstName: const FirstName.dirty('firstName'),
+            lastName: const LastName.dirty('lastName'),
             emailAddress: const Email.dirty('valid@email.com'),
             phoneNumber: const PhoneNumber.dirty('+123456789'),
             formStatus: FormzStatus.submissionSuccess,
