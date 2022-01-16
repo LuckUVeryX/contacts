@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/domain/entities/contact.dart';
 import '../../../../core/router/router.gr.dart';
-import '../../../contact_info/presentation/widgets/profile_picture_with_initials.dart';
-import '../bloc/contacts_list_bloc.dart';
+import 'profile_picture_with_initials.dart';
 
 class ContactCard extends StatelessWidget {
   const ContactCard({
@@ -23,60 +21,51 @@ class ContactCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    return Card(
-      child: InkWell(
-        onTap: () {
-          AutoRouter.of(context).push(ContactInfoRoute(
-              id: contact.id, bloc: context.read<ContactsListBloc>()));
-        },
-        child: Dismissible(
-          key: Key(contact.id.toString()),
-          direction: DismissDirection.endToStart,
-          confirmDismiss: confirmDismiss,
-          onDismissed: onDismissed,
-          background: Container(
-            color: colorScheme.primary,
-            child: Row(
-              children: const [
-                Spacer(),
-                Icon(Icons.delete, color: Colors.white),
-                SizedBox(width: 32.0),
-              ],
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ProfilePictureWithTextWidget(
-                  radius: 24.0,
-                  initials: contact.initials,
-                  backgroundColor: contact.profileColor,
-                ),
-                const SizedBox(width: 32.0),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        contact.firstName + ' ' + contact.lastName,
-                        style: textTheme.bodyText1,
-                      ),
-                      Text(
-                        contact.phoneNumber,
-                        style: textTheme.caption,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+    return Dismissible(
+      key: Key(contact.id.toString()),
+      direction: DismissDirection.endToStart,
+      confirmDismiss: confirmDismiss,
+      onDismissed: onDismissed,
+      background: Container(
+        color: colorScheme.primary,
+        child: Row(
+          children: const [
+            Spacer(),
+            Icon(Icons.delete, color: Colors.white),
+            SizedBox(width: 32.0),
+          ],
         ),
+      ),
+      child: ExpansionTile(
+        title: Text(
+          contact.firstName + ' ' + contact.lastName,
+          style: textTheme.bodyText1,
+        ),
+        subtitle: Text(
+          contact.phoneNumber,
+          style: textTheme.caption,
+        ),
+        leading: ProfilePictureWithTextWidget(
+          radius: 24.0,
+          initials: contact.initials,
+          backgroundColor: contact.profileColor,
+        ),
+        children: [
+          ListTile(
+            title: Text(
+              contact.emailAddress,
+              style: textTheme.caption,
+            ),
+            trailing: IconButton(
+              onPressed: () {
+                AutoRouter.of(context).push(
+                  EditContactsRoute(contact: contact),
+                );
+              },
+              icon: const Icon(Icons.edit, size: 20.0),
+            ),
+          ),
+        ],
       ),
     );
   }
